@@ -1,6 +1,5 @@
 # Python Syllabus — Product Company Track
-### Mohamed Salman · Target: Backend SWE · ₹5–15 LPA
-
+### Mohamed Salman Paris M | Date: 6th June 2026
 > **One rule above everything:** You do not switch languages. You do not start a new course.
 > If something feels hard, you bring it to your mentor first. Difficulty is not a signal to quit — it is a signal to ask.
 
