@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Syllabus — Product Company Track</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;
+  --surface:#F8F9FC;
+  --border:#E2E8F0;
+  --border-strong:#CBD5E1;
+  --ink:#0F172A;
+  --ink-2:#334155;
+  --ink-3:#64748B;
+  --ink-4:#94A3B8;
+  --blue:#1E40AF;
+  --blue-light:#EFF6FF;
+  --blue-mid:#BFDBFE;
+  --amber:#D97706;
+  --amber-light:#FFFBEB;
+  --green:#059669;
+  --green-light:#ECFDF5;
+  --coral:#DC2626;
+  --coral-light:#FEF2F2;
+  --purple:#7C3AED;
+  --purple-light:#F5F3FF;
+  --teal:#0891B2;
+  --teal-light:#ECFEFF;
+  --phase-0:#1E40AF;
+  --phase-1:#7C3AED;
+  --phase-gw:#D97706;
+  --phase-2:#059669;
+  --phase-3:#0891B2;
+  --phase-4:#DC2626;
+  --phase-5:#DB2777;
+  --phase-6:#EA580C;
+  --phase-dsa:#4F46E5;
+  --phase-cap:#0F172A;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius-sm:6px;
+  --radius-md:10px;
+  --radius-lg:14px;
+}
+html{scroll-behavior:smooth;background:var(--white)}
+body{font-family:var(--font-body);color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:0.92rem;color:var(--ink);text-decoration:none}
+.brand-mark{width:32px;height:32px;background:var(--ink);color:white;display:grid;place-items:center;border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.7rem;font-weight:500;letter-spacing:-0.02em}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.tb-btn{height:34px;padding:0 14px;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.82rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--ink-2);transition:all 0.15s}
+.tb-btn:hover{border-color:var(--border-strong);background:var(--surface)}
+.tb-btn.primary{background:var(--blue);color:white;border-color:var(--blue)}
+.tb-btn.primary:hover{background:#1d3a9e}
+#sectionSearch{height:34px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.82rem;color:var(--ink);background:var(--surface);width:220px;outline:none;transition:all 0.15s}
+#sectionSearch:focus{border-color:var(--blue);background:var(--white);box-shadow:0 0 0 3px rgba(30,64,175,0.08)}
+
+/* ── PROGRESS BAR ── */
+.progress-bar-track{height:3px;background:var(--border);position:fixed;top:56px;left:0;right:0;z-index:99}
+.progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--amber));transition:width 100ms linear}
+
+/* ── HERO ── */
+.hero{padding:64px 32px 56px;max-width:900px;margin:0 auto;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--blue);border-radius:2px;display:inline-block}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.8rem,6vw,4.4rem);line-height:1.05;color:var(--ink);margin-bottom:20px;font-weight:400}
+.hero h1 em{font-style:italic;color:var(--blue)}
+.hero-sub{font-size:1.05rem;color:var(--ink-2);max-width:640px;margin-bottom:28px;font-weight:400}
+.hero-rule{padding:16px 20px;background:var(--amber-light);border:1px solid #FDE68A;border-radius:var(--radius-md);font-size:0.9rem;color:#92400E;max-width:700px;line-height:1.5}
+.hero-rule strong{color:#78350F}
+.hero-stats{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;gap:2px}
+.hero-stat strong{font-size:1.8rem;font-family:var(--font-display);font-weight:400;color:var(--ink);line-height:1}
+.hero-stat span{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-4);font-weight:600}
+.hero-stat-divider{width:1px;background:var(--border);align-self:stretch}
+
+/* ── LAYOUT ── */
+.page-body{max-width:1280px;margin:0 auto;display:flex;gap:0;padding:0}
+
+/* ── SIDEBAR ── */
+.sidebar{width:260px;flex-shrink:0;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;border-right:1px solid var(--border);padding:28px 0}
+.sidebar-title{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-4);padding:0 20px;margin-bottom:12px}
+.nav-list{list-style:none;display:flex;flex-direction:column;gap:1px}
+.nav-item a{display:flex;align-items:center;gap:10px;padding:8px 20px;font-size:0.84rem;font-weight:500;color:var(--ink-3);text-decoration:none;transition:all 0.15s;border-left:3px solid transparent;border-radius:0}
+.nav-item a:hover{color:var(--ink);background:var(--surface)}
+.nav-item a.active{color:var(--blue);background:var(--blue-light);border-left-color:var(--blue);font-weight:600}
+.nav-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sidebar-divider{height:1px;background:var(--border);margin:12px 20px}
+
+/* ── CONTENT AREA ── */
+.content{flex:1;min-width:0;padding:40px 48px 120px}
+
+/* ── SECTION CARDS ── */
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:24px;overflow:hidden;scroll-margin-top:80px;transition:box-shadow 0.2s}
+.section-card:hover{box-shadow:0 4px 20px rgba(15,23,42,0.07)}
+.section-card.hidden{display:none}
+.section-stripe{height:4px;width:100%}
+.section-inner{padding:32px 36px}
+.section-eyebrow{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.section-title{font-family:var(--font-display);font-size:clamp(1.7rem,3vw,2.2rem);font-weight:400;color:var(--ink);line-height:1.08;margin-bottom:14px}
+.section-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.badge{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:1px solid}
+.badge-core{background:#FEF2F2;color:#991B1B;border-color:#FECACA}
+.badge-hire{background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE}
+.badge-job{background:#ECFDF5;color:#065F46;border-color:#A7F3D0}
+.badge-dsa{background:#F5F3FF;color:#5B21B6;border-color:#DDD6FE}
+.badge-career{background:#FFFBEB;color:#92400E;border-color:#FDE68A}
+.badge-time{background:var(--surface);color:var(--ink-3);border-color:var(--border)}
+.section-quote{font-size:0.88rem;color:var(--ink-3);border-left:3px solid var(--amber);padding:10px 14px;background:var(--amber-light);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:0;line-height:1.5}
+.section-header{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+
+/* ── TOPIC BLOCKS ── */
+.topic-block{border:1px solid var(--border);border-radius:var(--radius-md);padding:20px 22px;margin-bottom:14px;background:var(--white)}
+.topic-block:last-child{margin-bottom:0}
+.topic-title{font-size:0.95rem;font-weight:700;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.topic-title::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.topic-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.topic-list li{font-size:0.875rem;color:var(--ink-2);padding-left:14px;position:relative;line-height:1.55}
+.topic-list li::before{content:'–';position:absolute;left:0;color:var(--ink-4)}
+.topic-list code{font-family:var(--font-mono);font-size:0.78rem;background:#F1F5F9;border:1px solid var(--border);padding:1px 5px;border-radius:4px;color:#0F172A}
+
+/* ── INTRO GRID ── */
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0}
+.intro-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px}
+.intro-card h3{font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:12px}
+.intro-card p{font-size:0.85rem;color:var(--ink-2);margin-bottom:8px}
+.pipeline-code{font-family:var(--font-mono);font-size:0.76rem;background:#F8FAFC;border:1px solid var(--border);padding:14px;border-radius:var(--radius-sm);color:var(--blue);line-height:1.8}
+.tag-table{width:100%;border-collapse:collapse;font-size:0.82rem}
+.tag-table th{text-align:left;padding:6px 8px;color:var(--ink-4);font-weight:600;border-bottom:1px solid var(--border)}
+.tag-table td{padding:7px 8px;border-bottom:1px solid var(--border);color:var(--ink-2);vertical-align:middle}
+.tag-table tr:last-child td{border-bottom:none}
+
+/* ── CHECKLIST ── */
+.checklist-category{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-4);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.checklist-wrap{display:flex;flex-direction:column;gap:8px}
+.checklist-item{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border:1px solid var(--border);border-radius:var(--radius-md);cursor:pointer;transition:all 0.15s;background:var(--white)}
+.checklist-item:hover{border-color:var(--blue-mid);background:var(--blue-light)}
+.checklist-item.completed{background:#F0FDF4;border-color:#BBF7D0;opacity:0.8}
+.checklist-item.completed .checklist-label{text-decoration:line-through;color:var(--ink-4)}
+.checklist-item input[type="checkbox"]{appearance:none;width:18px;height:18px;border:2px solid var(--border-strong);border-radius:4px;flex-shrink:0;margin-top:1px;cursor:pointer;display:grid;place-items:center;transition:all 0.15s}
+.checklist-item input[type="checkbox"]::after{content:'✓';font-size:10px;font-weight:700;color:white;display:none}
+.checklist-item input[type="checkbox"]:checked{background:var(--green);border-color:var(--green)}
+.checklist-item input[type="checkbox"]:checked::after{display:block}
+.checklist-label{font-size:0.875rem;color:var(--ink-2);line-height:1.5}
+.checklist-label code{font-family:var(--font-mono);font-size:0.78rem;background:#F1F5F9;border:1px solid var(--border);padding:1px 5px;border-radius:4px;color:#0F172A}
+
+/* ── TABLE ── */
+.table-wrap{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:20px}
+.data-table{width:100%;border-collapse:collapse;font-size:0.875rem}
+.data-table th{background:var(--surface);padding:11px 16px;text-align:left;font-weight:600;font-size:0.8rem;color:var(--ink-2);border-bottom:1px solid var(--border)}
+.data-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--ink-2)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#FAFBFC}
+
+/* ── INTRO BLURB ── */
+.intro-blurb{font-size:0.9rem;color:var(--ink-2);margin-bottom:24px;line-height:1.65}
+
+/* ── PHASE 0 thru capstone colors ── */
+.stripe-0{background:var(--phase-0)}
+.stripe-1{background:var(--phase-1)}
+.stripe-gw{background:var(--phase-gw)}
+.stripe-2{background:var(--phase-2)}
+.stripe-3{background:var(--phase-3)}
+.stripe-4{background:var(--phase-4)}
+.stripe-5{background:var(--phase-5)}
+.stripe-6{background:var(--phase-6)}
+.stripe-dsa{background:var(--phase-dsa)}
+.stripe-cap{background:var(--phase-cap)}
+.stripe-ref{background:var(--ink-4)}
+
+.eyebrow-0{color:var(--phase-0)}
+.eyebrow-1{color:var(--phase-1)}
+.eyebrow-gw{color:var(--phase-gw)}
+.eyebrow-2{color:var(--phase-2)}
+.eyebrow-3{color:var(--phase-3)}
+.eyebrow-4{color:var(--phase-4)}
+.eyebrow-5{color:var(--phase-5)}
+.eyebrow-6{color:var(--phase-6)}
+.eyebrow-dsa{color:var(--phase-dsa)}
+.eyebrow-cap{color:var(--phase-cap)}
+.eyebrow-ref{color:var(--ink-4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .sidebar{display:none}
+  .content{padding:28px 24px 80px}
+  .intro-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .hero{padding:40px 20px 36px}
+  .hero-stats{gap:16px}
+  .hero-stat-divider{display:none}
+  .topbar{padding:0 16px}
+  #sectionSearch{width:140px}
+  .section-inner{padding:20px}
+  .hero h1{font-size:2.4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a class="brand" href="#">
+    <span class="brand-mark">Py</span>
+    Product Company Track
+  </a>
+  <div class="topbar-right">
+    <input id="sectionSearch" type="search" placeholder="Search syllabus…" aria-label="Search syllabus">
+    <a class="tb-btn" href="#gateway">Gateway</a>
+    <a class="tb-btn primary" href="#phase-0">Start</a>
+  </div>
+</header>
+<div class="progress-bar-track"><div class="progress-bar-fill" id="readProgress"></div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Premium curriculum</div>
+  <h1>Python Syllabus<br><em>Product Company Track</em></h1>
+  <p class="hero-sub">Mohamed Salman Paris M · 6 June 2026 · From first script to FastAPI capstone, built for backend engineering at product companies.</p>
+  <div class="hero-rule"><strong>One rule above everything:</strong> You do not switch languages. You do not start a new course. If something feels hard, bring it to your mentor first. Difficulty is not a signal to quit — it is a signal to ask.</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>7</strong><span>Main phases</span></div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat"><strong>12</strong><span>Sections</span></div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat"><strong>1 hr</strong><span>DSA daily</span></div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat"><strong>1</strong><span>Capstone path</span></div>
+  </div>
+</section>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" aria-label="Syllabus navigation">
+    <div class="sidebar-title">Syllabus Index</div>
+    <ul class="nav-list">
+      <li class="nav-item"><a href="#how-it-works"><span class="nav-dot" style="background:#94A3B8"></span>How it works</a></li>
+      <div class="sidebar-divider"></div>
+      <li class="nav-item"><a href="#phase-0"><span class="nav-dot" style="background:var(--phase-0)"></span>Phase 0 — Beginner</a></li>
+      <li class="nav-item"><a href="#phase-1"><span class="nav-dot" style="background:var(--phase-1)"></span>Phase 1 — Core Depth</a></li>
+      <li class="nav-item"><a href="#gateway"><span class="nav-dot" style="background:var(--phase-gw)"></span>DSA Gateway</a></li>
+      <div class="sidebar-divider"></div>
+      <li class="nav-item"><a href="#phase-2"><span class="nav-dot" style="background:var(--phase-2)"></span>Phase 2 — Std Library</a></li>
+      <li class="nav-item"><a href="#phase-3"><span class="nav-dot" style="background:var(--phase-3)"></span>Phase 3 — Async</a></li>
+      <li class="nav-item"><a href="#phase-4"><span class="nav-dot" style="background:var(--phase-4)"></span>Phase 4 — Testing</a></li>
+      <li class="nav-item"><a href="#phase-5"><span class="nav-dot" style="background:var(--phase-5)"></span>Phase 5 — Database</a></li>
+      <li class="nav-item"><a href="#phase-6"><span class="nav-dot" style="background:var(--phase-6)"></span>Phase 6 — DevOps</a></li>
+      <div class="sidebar-divider"></div>
+      <li class="nav-item"><a href="#dsa-track"><span class="nav-dot" style="background:var(--phase-dsa)"></span>DSA Side Track</a></li>
+      <li class="nav-item"><a href="#fastapi"><span class="nav-dot" style="background:var(--phase-cap)"></span>FastAPI Capstone</a></li>
+      <li class="nav-item"><a href="#reference"><span class="nav-dot" style="background:#94A3B8"></span>Quick Reference</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="section-card">
+      <div class="section-stripe stripe-ref"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-ref">Overview</div>
+          <h2 class="section-title">How This Syllabus Works</h2>
+        </div>
+        <p class="intro-blurb">Two tracks run in parallel once you hit the DSA gateway. Phase 0 + Phase 1 must be completed fully first. After passing the gateway, DSA runs as a daily side-track (1 hr/day) while Phase 2–6 continues as your main curriculum.</p>
+        <div class="intro-grid">
+          <div class="intro-card">
+            <h3>Visual Pipeline</h3>
+            <div class="pipeline-code">
+              Phase 0 ──► Phase 1 ──► 🚦 GATEWAY<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+              DSA (1hr/day) ◄──────── Phase 2–6
+            </div>
+          </div>
+          <div class="intro-card">
+            <h3>Tag Reference</h3>
+            <table class="tag-table">
+              <thead><tr><th>Tag</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-core">CORE</span></td><td>Mandatory — before gateway</td></tr>
+                <tr><td><span class="badge badge-dsa">DSA-NEEDED</span></td><td>Specifically for DSA track</td></tr>
+                <tr><td><span class="badge badge-hire">HIRE</span></td><td>Tested in interviews</td></tr>
+                <tr><td><span class="badge badge-job">JOB</span></td><td>Day-one on-the-job relevance</td></tr>
+                <tr><td><span class="badge badge-career">CAREER+</span></td><td>Post-hire extensions</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 0 -->
+    <section id="phase-0" class="section-card">
+      <div class="section-stripe stripe-0"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-0">Phase 0</div>
+          <h2 class="section-title">Absolute Beginner Foundation</h2>
+          <div class="section-meta">
+            <span class="badge badge-core">CORE</span>
+            <span class="badge badge-time">~3 weeks</span>
+          </div>
+          <div class="section-quote">Your true starting point. Nothing here is optional. Do not skip, do not skim.</div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.1 Setup & First Program</div>
+          <ul class="topic-list">
+            <li>Installing Python 3.11+, verifying with <code>python --version</code></li>
+            <li>VS Code setup — Python extension, select interpreter, run with F5 or terminal</li>
+            <li>REPL — experimenting line by line with <code>python</code> in terminal</li>
+            <li>First script — <code>print("Hello, World!")</code>, save as <code>.py</code>, run with <code>python filename.py</code></li>
+            <li>Comments — <code>#</code> single-line, <code>"""..."""</code> multi-line docstrings</li>
+            <li><code>print()</code> — multiple arguments, <code>sep=</code>, <code>end=</code>, f-strings preview</li>
+            <li><code>input()</code> — reading user input, always returns a string</li>
+            <li>Indentation — 4 spaces standard, what <code>IndentationError</code> means</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.2 Variables & Basic Data Types</div>
+          <ul class="topic-list">
+            <li>Variables — naming rules, snake_case, multiple assignment, swapping values</li>
+            <li><code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>None</code> — what each one is</li>
+            <li>Floating point imprecision — <code>0.1 + 0.2 != 0.3</code> and why</li>
+            <li><code>type()</code> and <code>isinstance()</code> — checking and validating types</li>
+            <li>Type conversion — <code>int()</code>, <code>float()</code>, <code>str()</code>, <code>bool()</code></li>
+            <li>Operators — arithmetic, comparison, logical, short-circuit evaluation, augmented assignment</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.3 Strings in Depth</div>
+          <ul class="topic-list">
+            <li>String creation, indexing <code>s[0]</code>, slicing <code>s[start:stop:step]</code>, reversing with <code>s[::-1]</code></li>
+            <li>f-strings — <code>f"Hello, {name}!"</code> and string repetition <code>"ha" * 3</code></li>
+            <li>String concatenation inefficiency in loops — use <code>join()</code> instead</li>
+            <li>Methods: <code>.upper()</code>, <code>.lower()</code>, <code>.strip()</code>, <code>.replace()</code>, <code>.split()</code>, <code>.isdigit()</code></li>
+            <li>String immutability — cannot change a character in-place</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.4 Lists</div>
+          <ul class="topic-list">
+            <li>Creating, mutability, indexing, and slicing</li>
+            <li>Adding elements — <code>.append()</code> O(1), <code>.insert()</code> O(n), <code>.extend()</code></li>
+            <li>Removing elements — <code>.remove()</code>, <code>.pop()</code>, <code>del</code>, <code>.clear()</code></li>
+            <li>Sorting — <code>.sort()</code> in-place vs <code>sorted()</code> returns new list</li>
+            <li>Shallow copy vs reference copy: why <code>b = a</code> does not copy lists</li>
+            <li>Nested lists and unpacking arrays</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.5 Tuples, Sets & Dictionaries</div>
+          <ul class="topic-list">
+            <li><strong>Tuples:</strong> Creating, immutability, fixed collections, returning multiple values, unpacking</li>
+            <li><strong>Sets:</strong> Unordered, no duplicates, O(1) membership testing, union <code>|</code>, intersection <code>&amp;</code></li>
+            <li><strong>Dicts:</strong> Key-value stores, accessing safely with <code>.get()</code>, <code>.items()</code> loops, ordering</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.6 Conditional Statements</div>
+          <ul class="topic-list">
+            <li><code>if</code> / <code>elif</code> / <code>else</code> — first True condition wins</li>
+            <li>Truthiness and falsiness — <code>0</code>, <code>""</code>, <code>[]</code>, <code>{}</code>, <code>None</code> are all falsy</li>
+            <li>Ternary expression — <code>value = "yes" if condition else "no"</code></li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.7 Loops</div>
+          <ul class="topic-list">
+            <li><code>for</code> loops — iterating over ranges, lists, dicts; <code>enumerate()</code>, <code>zip()</code></li>
+            <li><code>while</code> loops — conditional loop blocks, infinite loops, exit flags</li>
+            <li>Loop control — <code>break</code>, <code>continue</code>, <code>else</code> blocks on loops</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.8 Functions — Basics</div>
+          <ul class="topic-list">
+            <li><code>def</code>, <code>return</code>, default parameter values, keyword arguments, local vs global scope</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">0.9 – 0.12 Foundations</div>
+          <ul class="topic-list">
+            <li>Built-ins: <code>min</code>, <code>max</code>, <code>sum</code>, <code>any</code>, <code>all</code>, type casting</li>
+            <li>File I/O basics: <code>with open("file.txt") as f:</code>, file modes, encoding rules</li>
+            <li>Error handling: <code>try/except/finally</code>, custom checks, raising exceptions</li>
+            <li>Modules: <code>math</code>, <code>random</code>, <code>os</code>, <code>sys</code>, <code>datetime</code>, <code>time</code>, <code>pip install</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 1 -->
+    <section id="phase-1" class="section-card">
+      <div class="section-stripe stripe-1"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-1">Phase 1</div>
+          <h2 class="section-title">Python Core Depth</h2>
+          <div class="section-meta">
+            <span class="badge badge-core">CORE</span>
+            <span class="badge badge-hire">HIRE</span>
+            <span class="badge badge-time">~4 weeks</span>
+          </div>
+          <div class="section-quote">The filter layer every backend interview starts with. No gaps, no hand-waving.</div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">1.1 Mutability, Identity & Memory</div>
+          <ul class="topic-list">
+            <li><code>id()</code>, <code>is</code> vs <code>==</code>, identity vs equality</li>
+            <li>Mutability rules: mutable vs immutable collections</li>
+            <li>Mutable default argument trap: <code>def f(x=[]):</code> bug and <code>None</code> sentinels</li>
+            <li>Shallow copy vs deep copy: <code>copy.copy()</code> vs <code>copy.deepcopy()</code></li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">1.2 Comprehensions & Advanced Iterables</div>
+          <ul class="topic-list">
+            <li>List, dict, and set comprehensions; nested generators</li>
+            <li>Generator expressions: memory efficiency and lazy evaluation</li>
+            <li>Walrus operator <code>:=</code> inside comprehensions and loops</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">1.3 Function Scopes & Closures</div>
+          <ul class="topic-list">
+            <li>Positional, keyword-only (<code>*</code>), and positional-only (<code>/</code>) arguments</li>
+            <li><code>*args</code> and <code>**kwargs</code> packing and unpacking</li>
+            <li>First-class functions, higher-order functions, closures, <code>nonlocal</code> keyword</li>
+            <li>Late binding gotcha in loops and <code>functools.partial()</code></li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">1.4 OOP & Magic Methods</div>
+          <ul class="topic-list">
+            <li>Instance vs class vs static methods; properties and setters</li>
+            <li>Dunder methods: <code>__init__</code>, <code>__repr__</code>, <code>__eq__</code>, <code>__hash__</code>, <code>__len__</code>, <code>__getitem__</code></li>
+            <li>Inheritance MRO (C3 linearization), diamond problem, abstract base classes</li>
+            <li>Dataclasses: <code>@dataclass</code>, field definitions, post-init hooks</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">1.5 – 1.8 Iterators, Decorators & Types</div>
+          <ul class="topic-list">
+            <li>Iterator protocol: <code>__iter__</code>, <code>__next__</code>, <code>StopIteration</code></li>
+            <li>Decorators: function wrapping, metadata retention via <code>functools.wraps</code>, LRU cache</li>
+            <li>Type hints: annotations, Generic classes, <code>Protocol</code> structural typing, mypy</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- GATEWAY -->
+    <section id="gateway" class="section-card">
+      <div class="section-stripe stripe-gw"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-gw">Checkpoint</div>
+          <h2 class="section-title">DSA Gateway Checklist</h2>
+          <div class="section-quote">Check every item before starting the daily DSA side track. All nine must be ticked.</div>
+        </div>
+
+        <div class="checklist-category">From Phase 0</div>
+        <div class="checklist-wrap">
+          <label class="checklist-item"><input type="checkbox" id="cb-p0-1"><div class="checklist-label">You can write a Python function from scratch with parameters, return values, and a docstring.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-p0-2"><div class="checklist-label">You understand list indexing, slicing, and the difference between <code>.sort()</code> and <code>sorted()</code>.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-p0-3"><div class="checklist-label">You can use <code>dict</code>, <code>set</code>, and <code>list</code> naturally — adding, removing, iterating.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-p0-4"><div class="checklist-label">You understand <code>for</code> loops, <code>while</code> loops, <code>break</code>, and <code>continue</code>.</div></label>
+        </div>
+
+        <div class="checklist-category">From Phase 1</div>
+        <div class="checklist-wrap">
+          <label class="checklist-item"><input type="checkbox" id="cb-p1-1"><div class="checklist-label">You understand <code>is</code> vs <code>==</code> and can explain the mutable default argument trap.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-p1-2"><div class="checklist-label">You can write a list comprehension, dict comprehension, and generator expression.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-p1-3"><div class="checklist-label">You understand closures, <code>*args</code>, and <code>**kwargs</code>.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-p1-4"><div class="checklist-label">You can write a class with <code>__repr__</code> and understand multiple inheritance MRO.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-p1-5"><div class="checklist-label">You can write a custom decorator using <code>functools.wraps</code>.</div></label>
+        </div>
+
+        <div class="checklist-category">DSA-Specific Python Libraries</div>
+        <div class="checklist-wrap">
+          <label class="checklist-item"><input type="checkbox" id="cb-dsa-1"><div class="checklist-label">You can use <code>collections.defaultdict</code> and <code>collections.Counter</code>.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-dsa-2"><div class="checklist-label">You can use <code>collections.deque</code> for O(1) appends and pops.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-dsa-3"><div class="checklist-label">You can use <code>heapq</code> and understand the max-heap negative number trick.</div></label>
+          <label class="checklist-item"><input type="checkbox" id="cb-dsa-4"><div class="checklist-label">You can use <code>bisect.bisect_left()</code> and <code>bisect.bisect_right()</code> for binary search.</div></label>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 2 -->
+    <section id="phase-2" class="section-card">
+      <div class="section-stripe stripe-2"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-2">Phase 2</div>
+          <h2 class="section-title">Standard Library Mastery</h2>
+          <div class="section-meta">
+            <span class="badge badge-hire">HIRE</span>
+            <span class="badge badge-job">JOB</span>
+            <span class="badge badge-time">~3 weeks</span>
+          </div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">2.1 Collections & Paths</div>
+          <ul class="topic-list">
+            <li><code>Counter</code> operations, defaultdict factories, deque circular buffers, namedtuples</li>
+            <li><code>pathlib.Path</code>: file system globbing, dir iterations, reading/writing text, mkdirs</li>
+            <li><code>os</code> environments, subprocess, file manipulation via <code>shutil</code></li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">2.2 Formats & Utility Packages</div>
+          <ul class="topic-list">
+            <li>JSON serialization: loading, dumping, custom encoders for unmappable classes</li>
+            <li>CSV parsing: reader, writer, DictReader, DictWriter</li>
+            <li><code>datetime</code> timezone awareness, UTC, ISO format codes, parsing date strings</li>
+            <li>Regular expressions: <code>re.search</code>, <code>re.match</code>, capture groups, sub, split</li>
+            <li><code>logging</code> log hierarchies, custom configurations, propagation controls</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 3 -->
+    <section id="phase-3" class="section-card">
+      <div class="section-stripe stripe-3"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-3">Phase 3</div>
+          <h2 class="section-title">Concurrency & Async</h2>
+          <div class="section-meta">
+            <span class="badge badge-hire">HIRE</span>
+            <span class="badge badge-time">~3 weeks</span>
+          </div>
+          <div class="section-quote">FastAPI is async-first. This phase is non-negotiable.</div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">3.1 Threading & Multiprocessing</div>
+          <ul class="topic-list">
+            <li>CPython GIL: what it protects, its implications on I/O vs CPU bound programs</li>
+            <li>Threads: creation, Locks, RLocks, events, race conditions</li>
+            <li>Processes: Pool executors, multiprocessing module, Windows/macOS startup main block guard</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">3.2 asyncio</div>
+          <ul class="topic-list">
+            <li>Event loop structure, coroutine invocation via <code>async def</code> and <code>await</code></li>
+            <li>Running tasks concurrently: <code>asyncio.gather</code>, <code>asyncio.wait</code>, TaskGroups (Python 3.11+)</li>
+            <li>Async components: Locks, Semaphores, Queues, Context Managers, Iterators</li>
+            <li>Httpx async client sessions: requests, timeout options, connection pooling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 4 -->
+    <section id="phase-4" class="section-card">
+      <div class="section-stripe stripe-4"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-4">Phase 4</div>
+          <h2 class="section-title">Testing & Code Quality</h2>
+          <div class="section-meta">
+            <span class="badge badge-hire">HIRE</span>
+            <span class="badge badge-time">~2 weeks</span>
+          </div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">4.1 pytest</div>
+          <ul class="topic-list">
+            <li>Test discovery, assertion rewriting, fixture scopes, <code>conftest.py</code></li>
+            <li>Parametrization, test markers, temporary directories, monkeypatch mocking</li>
+            <li>Exception checking, <code>pytest-asyncio</code>, ASGI test clients</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">4.2 Mocking & Linters</div>
+          <ul class="topic-list">
+            <li>Mock objects, MagicMock, patch decorators, patch context managers, side effects</li>
+            <li>Mocking time, databases, third-party clients, file-readers</li>
+            <li>Ruff formatting/linting, mypy strict type checking, pre-commit git hooks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 5 -->
+    <section id="phase-5" class="section-card">
+      <div class="section-stripe stripe-5"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-5">Phase 5</div>
+          <h2 class="section-title">Data & Database Layer</h2>
+          <div class="section-meta">
+            <span class="badge badge-hire">HIRE</span>
+            <span class="badge badge-time">~3 weeks</span>
+          </div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">5.1 SQLAlchemy ORM & Alembic</div>
+          <ul class="topic-list">
+            <li>SQLAlchemy 2.0 DeclarativeBase, Mapped columns, relationship keys, foreign keys</li>
+            <li>Sessions: Sessionmaker, AsyncSession transactions, raw select queries, joins</li>
+            <li>Eager loading: N+1 queries, selectinload, joinedload, lazy raise</li>
+            <li>Alembic migrations: autogeneration, upgrades, downgrades, stamp heads</li>
+          </ul>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">5.2 Pydantic, Redis & Postgres</div>
+          <ul class="topic-list">
+            <li>Pydantic schemas: field validators, computed fields, serialization mappings</li>
+            <li>Redis cache: key-value caching, TTL configurations, list queues, hash representations</li>
+            <li>Postgres: indexes, composite keys, EXPLAIN plans, transaction isolation levels</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 6 -->
+    <section id="phase-6" class="section-card">
+      <div class="section-stripe stripe-6"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-6">Phase 6</div>
+          <h2 class="section-title">Packaging, Tooling & DevOps</h2>
+          <div class="section-meta">
+            <span class="badge badge-hire">HIRE</span>
+            <span class="badge badge-time">~2 weeks</span>
+          </div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">6.1 Virtualenvs, Docker & CI/CD</div>
+          <ul class="topic-list">
+            <li>Virtual environments, <code>pyproject.toml</code> dependencies, fast package managers like <code>uv</code></li>
+            <li>Docker: Dockerfiles, layer cache optimization, docker-compose orchestration</li>
+            <li>GitHub Actions workflows, running tests in CI, pipeline secrets</li>
+            <li>12-Factor app architecture: configuration via environment variables</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- DSA SIDE TRACK -->
+    <section id="dsa-track" class="section-card">
+      <div class="section-stripe stripe-dsa"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-dsa">Parallel Track</div>
+          <h2 class="section-title">DSA — Daily Side Track</h2>
+          <div class="section-meta">
+            <span class="badge badge-hire">HIRE</span>
+            <span class="badge badge-time">1 hr / day</span>
+          </div>
+          <div class="section-quote">Starts only after the Gateway is passed. NeetCode 150, 18 topics, 7 stages.</div>
+        </div>
+
+        <div class="topic-block">
+          <div class="topic-title">DSA Subject Schedule</div>
+          <ul class="topic-list">
+            <li><strong>Arrays & Strings</strong> — two pointer, sliding windows, prefix sums, Kadane's algorithm</li>
+            <li><strong>Hash Maps & Sets</strong> — membership lookups, frequency maps, group anagrams</li>
+            <li><strong>Stacks & Queues</strong> — deques, monotonic stack, min stacks, heap priority queues</li>
+            <li><strong>Linked Lists</strong> — node linkage, Floyd cycle detection, reverse, LRU cache</li>
+            <li><strong>Binary Search</strong> — bisect indexes, search bounds, answer space searching</li>
+            <li><strong>Trees</strong> — traversals (BFS/DFS), height, LCA, trie prefix trees</li>
+            <li><strong>Recursion & Backtracking</strong> — call stack, backtracking state branches, N-Queens</li>
+            <li><strong>Graphs</strong> — adjacency lists, BFS paths, cycle checks, topological sort, Dijkstra</li>
+            <li><strong>Dynamic Programming</strong> — optimal substructure, memoization, 1D/2D patterns</li>
+            <li><strong>Bitwise Manipulation</strong> — bit ops, popcount, bitmask permutations</li>
+            <li><strong>Sorting Algorithms</strong> — merge sort, quicksort, cyclic sort</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASTAPI CAPSTONE -->
+    <section id="fastapi" class="section-card">
+      <div class="section-stripe stripe-cap"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-cap">Capstone</div>
+          <h2 class="section-title">FastAPI Integration</h2>
+          <div class="section-quote">With Phase 1–6 complete, every FastAPI concept maps to something you already know.</div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>FastAPI Concept</th><th>Prerequisite Already Done</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Type hints on routes</td><td>Phase 1.8 — Type Hints</td></tr>
+              <tr><td>Request / Response models</td><td>Phase 5.2 — Pydantic v2</td></tr>
+              <tr><td>Async endpoints</td><td>Phase 3.2 — asyncio</td></tr>
+              <tr><td>Lifespan events</td><td>Phase 2 — asynccontextmanager</td></tr>
+              <tr><td>DB layer integrations</td><td>Phase 5.1 — SQLAlchemy + Alembic</td></tr>
+              <tr><td>Route testing</td><td>Phase 4.1 — pytest-asyncio + AsyncClient</td></tr>
+              <tr><td>Docker configurations</td><td>Phase 6.1 — Docker</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK REFERENCE -->
+    <section id="reference" class="section-card">
+      <div class="section-stripe stripe-ref"></div>
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-eyebrow eyebrow-ref">Summary</div>
+          <h2 class="section-title">Quick Reference</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Phase</th><th>Topic</th><th>Priority</th><th>Weight</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>0</td><td>Beginner Foundation</td><td><span class="badge badge-core">CORE</span></td><td>Prerequisite</td></tr>
+              <tr><td>1</td><td>Python Core Depth</td><td><span class="badge badge-hire">HIRE</span></td><td>Very High</td></tr>
+              <tr><td>Gateway</td><td>Python tools for DSA</td><td><span class="badge badge-dsa">DSA-NEEDED</span></td><td>Blocker</td></tr>
+              <tr><td>2</td><td>Standard Library</td><td><span class="badge badge-hire">HIRE</span></td><td>High</td></tr>
+              <tr><td>3</td><td>Concurrency & Async</td><td><span class="badge badge-hire">HIRE</span></td><td>Very High</td></tr>
+              <tr><td>4</td><td>Testing & Quality</td><td><span class="badge badge-hire">HIRE</span></td><td>Very High</td></tr>
+              <tr><td>5</td><td>Data & DB Layer</td><td><span class="badge badge-hire">HIRE</span></td><td>High</td></tr>
+              <tr><td>6</td><td>DevOps & Packaging</td><td><span class="badge badge-hire">HIRE</span></td><td>Medium-High</td></tr>
+              <tr><td>DSA</td><td>Algorithms & Structures</td><td><span class="badge badge-hire">HIRE</span></td><td>Very High</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const progressFill = document.getElementById('readProgress');
+const navLinks = [...document.querySelectorAll('.nav-item a')];
+const sections = [...document.querySelectorAll('.section-card')];
+const searchInput = document.getElementById('sectionSearch');
+
+document.querySelectorAll('.checklist-item').forEach((item, i) => {
+  const cb = item.querySelector('input[type="checkbox"]');
+  const key = cb.id || 'py-cb-' + i;
+  cb.checked = localStorage.getItem(key) === 'true';
+  item.classList.toggle('completed', cb.checked);
+  cb.addEventListener('change', () => {
+    localStorage.setItem(key, cb.checked);
+    item.classList.toggle('completed', cb.checked);
+  });
+});
+
+function updateProgress() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = scrollable > 0 ? Math.min(100, (window.scrollY / scrollable) * 100) : 0;
+  progressFill.style.width = pct + '%';
+}
+
+function updateActiveNav() {
+  let current = '';
+  sections.forEach(s => {
+    if (!s.classList.contains('hidden') && window.scrollY >= s.offsetTop - 100) {
+      current = s.id;
+    }
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  sections.forEach(s => {
+    s.classList.toggle('hidden', q && !s.textContent.toLowerCase().includes(q));
+  });
+  navLinks.forEach(a => {
+    const sec = document.querySelector(a.getAttribute('href'));
+    a.parentElement.style.display = sec && !sec.classList.contains('hidden') ? '' : 'none';
+  });
+});
+
+window.addEventListener('scroll', () => { updateProgress(); updateActiveNav(); }, { passive: true });
+window.addEventListener('resize', updateProgress);
+updateProgress();
+updateActiveNav();
+</script>
+</body>
+</html>
