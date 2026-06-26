@@ -1,10 +1,4 @@
-Let's go. Full topic, nothing skipped.
-
----
-
-## 0.11 Error Handling Basics
-
----
+# 0.11 Error Handling Basics
 
 ## What Is an Exception
 
@@ -25,7 +19,7 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-**Reading a traceback — top to bottom:**
+### Reading a Traceback — Top to Bottom
 
 ```
 Traceback (most recent call last):     ← always says this
@@ -36,7 +30,9 @@ ZeroDivisionError: division by zero    ← exception type: message
 
 The last line is the most important — exception type and message. The lines above show the call stack — which function called which, leading to the error.
 
-**Exceptions are objects — they have a type and a message:**
+### Exceptions are Objects
+
+They have a type and a message:
 
 ```python
 try:
@@ -51,47 +47,71 @@ except ZeroDivisionError as e:
 
 ## Common Exceptions — Know These Cold
 
+### ValueError — Right Type, Wrong Value
+
 ```python
-# ValueError — right type, wrong value
 int("hello")                    # ValueError: invalid literal for int()
 int("3.14")                     # ValueError: invalid literal for int()
 [1,2,3].index(99)               # ValueError: 99 is not in list
 "hello".encode("invalid")       # ValueError
+```
 
-# TypeError — wrong type entirely
+### TypeError — Wrong Type Entirely
+
+```python
 "hello" + 5                     # TypeError: can only concatenate str (not "int") to str
 len(42)                         # TypeError: object of type 'int' has no len()
 1 + "2"                         # TypeError
+```
 
-# IndexError — index out of range
+### IndexError — Index Out of Range
+
+```python
 lst = [1, 2, 3]
 lst[5]                          # IndexError: list index out of range
 lst[-4]                         # IndexError
 "hi"[10]                        # IndexError
+```
 
-# KeyError — dict key doesn't exist
+### KeyError — Dict Key Doesn't Exist
+
+```python
 d = {"a": 1}
 d["b"]                          # KeyError: 'b'
+```
 
-# FileNotFoundError — file doesn't exist
+### FileNotFoundError — File Doesn't Exist
+
+```python
 open("missing.txt")             # FileNotFoundError: [Errno 2] No such file
+```
 
-# ZeroDivisionError — dividing by zero
+### ZeroDivisionError — Dividing by Zero
+
+```python
 10 / 0                          # ZeroDivisionError: division by zero
 10 // 0                         # ZeroDivisionError: integer division by zero
 10 % 0                          # ZeroDivisionError: integer modulo by zero
+```
 
-# AttributeError — object doesn't have that attribute or method
+### AttributeError — Object Doesn't Have That Attribute or Method
+
+```python
 "hello".push("!")               # AttributeError: 'str' has no attribute 'push'
 None.upper()                    # AttributeError: 'NoneType' has no attribute 'upper'
 x = 5
 x.append(1)                     # AttributeError: 'int' has no attribute 'append'
+```
 
-# NameError — variable doesn't exist
+### NameError — Variable Doesn't Exist
+
+```python
 print(undefined_var)            # NameError: name 'undefined_var' is not defined
 ```
 
-**Exception hierarchy — they all inherit from `BaseException`:**
+### Exception Hierarchy
+
+All exceptions inherit from `BaseException`:
 
 ```
 BaseException
@@ -115,7 +135,7 @@ This matters because catching a parent catches all its children too.
 
 ---
 
-## `try / except` — Basic Structure
+## try / except — Basic Structure
 
 ```python
 try:
@@ -128,13 +148,15 @@ except ZeroDivisionError:
 print("program continues")    # always runs — exception was handled
 ```
 
-**Without handling — program crashes:**
+### Without Handling — Program Crashes
+
 ```python
 result = 10 / 0        # program dies here
 print("never runs")
 ```
 
-**With handling — program continues:**
+### With Handling — Program Continues
+
 ```python
 try:
     result = 10 / 0
@@ -143,7 +165,7 @@ except ZeroDivisionError:
 print(result)          # 0  — program survived
 ```
 
-**The `try` block exits immediately when an exception is raised:**
+### The try Block Exits Immediately When an Exception is Raised
 
 ```python
 try:
@@ -162,29 +184,36 @@ except ValueError:
 
 ## Catching Specific Exceptions
 
-**Always catch the most specific exception you can:**
+### Always Catch the Most Specific Exception You Can
+
+**Bad — bare except catches everything including KeyboardInterrupt, SystemExit:**
 
 ```python
-# BAD — bare except catches everything including KeyboardInterrupt, SystemExit
 try:
     x = int(input("number: "))
 except:
     print("something went wrong")    # what went wrong? no idea
+```
 
-# BAD — Exception is too broad when you know what to expect
+**Bad — Exception is too broad when you know what to expect:**
+
+```python
 try:
     x = int(input("number: "))
 except Exception:
     print("something went wrong")
+```
 
-# GOOD — catch exactly what you expect
+**Good — catch exactly what you expect:**
+
+```python
 try:
     x = int(input("number: "))
 except ValueError:
     print("that's not a valid number")
 ```
 
-**Why bare `except:` is dangerous:**
+### Why Bare except: is Dangerous
 
 ```python
 import time
@@ -196,17 +225,21 @@ except:
                       # user can never stop this program with Ctrl+C
 ```
 
-**Catching multiple specific exceptions:**
+### Catching Multiple Specific Exceptions
+
+**Option 1 — tuple of exceptions (same handler):**
 
 ```python
-# Option 1 — tuple of exceptions (same handler)
 try:
     value = data[key]
     result = int(value)
 except (KeyError, ValueError):
     print("missing key or bad value")
+```
 
-# Option 2 — separate handlers (different responses)
+**Option 2 — separate handlers (different responses):**
+
+```python
 try:
     value = data[key]
     result = int(value)
@@ -216,7 +249,7 @@ except ValueError:
     print(f"can't convert to int: {value}")
 ```
 
-**Catching parent catches all children:**
+### Catching Parent Catches All Children
 
 ```python
 try:
@@ -235,7 +268,7 @@ except PermissionError:
 
 ---
 
-## `except Exception as e` — Capturing the Exception Object
+## except Exception as e — Capturing the Exception Object
 
 ```python
 try:
@@ -246,7 +279,7 @@ except ValueError as e:
     print(repr(e))     # ValueError("invalid literal for int() with base 10: 'not a number'")
 ```
 
-**`str(e)` gives the message. `repr(e)` gives type + message.**
+### str(e) Gives the Message. repr(e) Gives Type + Message.
 
 ```python
 try:
@@ -259,7 +292,7 @@ except KeyError as e:
     print(e.args[0])    # missing_key      — the actual key
 ```
 
-**Using `e` to make decisions:**
+### Using e to Make Decisions
 
 ```python
 def parse_config(data):
@@ -275,7 +308,7 @@ def parse_config(data):
         return None, None
 ```
 
-**Logging the full traceback with `as e`:**
+### Logging the Full Traceback with as e
 
 ```python
 import traceback
@@ -291,7 +324,7 @@ except Exception as e:
 
 ---
 
-## `else` Clause — Runs Only If No Exception
+## else Clause — Runs Only If No Exception
 
 ```python
 try:
@@ -302,17 +335,21 @@ else:
     print(f"conversion succeeded: {result}")    # only runs if no exception
 ```
 
-**The key distinction — `else` vs putting code at the end of `try`:**
+### The Key Distinction — else vs Putting Code at the End of try
+
+**Bad — putting success code inside try catches its exceptions too:**
 
 ```python
-# BAD — putting success code inside try catches its exceptions too
 try:
     result = int(user_input)
     send_to_database(result)    # if THIS raises an exception, it's caught by ValueError
 except ValueError:
     print("bad input")
+```
 
-# GOOD — else keeps success code separate
+**Good — else keeps success code separate:**
+
+```python
 try:
     result = int(user_input)
 except ValueError:
@@ -321,7 +358,7 @@ else:
     send_to_database(result)    # only runs on success, NOT caught by ValueError above
 ```
 
-**A realistic example:**
+### A Realistic Example
 
 ```python
 def load_user(user_id):
@@ -339,7 +376,7 @@ def load_user(user_id):
 
 ---
 
-## `finally` Clause — Always Runs
+## finally Clause — Always Runs
 
 `finally` runs whether an exception was raised or not, whether it was handled or not, even if there's a `return` in the `try` block.
 
@@ -367,7 +404,7 @@ finally:
 # this always runs
 ```
 
-**`finally` runs even when exception is NOT caught:**
+### finally Runs Even When Exception is NOT Caught
 
 ```python
 try:
@@ -379,7 +416,7 @@ finally:
 # Traceback: ValueError  ← exception still propagates after finally
 ```
 
-**`finally` runs even with `return`:**
+### finally Runs Even with return
 
 ```python
 def test():
@@ -394,10 +431,11 @@ result = test()
 print(result)    # from try
 ```
 
-**Main use — cleanup that must happen no matter what:**
+### Main Use — Cleanup That Must Happen No Matter What
+
+**Without context manager — manual cleanup:**
 
 ```python
-# Without context manager — manual cleanup
 f = open("file.txt")
 try:
     data = f.read()
@@ -406,14 +444,17 @@ except Exception as e:
     print(f"error: {e}")
 finally:
     f.close()    # ALWAYS closes the file — even if process() raised an exception
+```
 
-# With context manager — cleaner, same guarantee
+**With context manager — cleaner, same guarantee:**
+
+```python
 with open("file.txt") as f:    # __exit__ is the finally under the hood
     data = f.read()
     process(data)
 ```
 
-**Full `try / except / else / finally` together:**
+### Full try / except / else / finally Together
 
 ```python
 def divide(a, b):
@@ -450,7 +491,7 @@ try block runs
 
 ---
 
-## `raise` — Manually Raising an Exception
+## raise — Manually Raising an Exception
 
 You can raise exceptions yourself to signal that something is wrong.
 
@@ -459,7 +500,7 @@ raise ValueError("must be positive")
 # ValueError: must be positive
 ```
 
-**Raising with a message:**
+### Raising with a Message
 
 ```python
 def set_age(age):
@@ -473,7 +514,7 @@ set_age(-5)    # ValueError: age cannot be negative, got -5
 set_age(200)   # ValueError: age 200 is unrealistically large
 ```
 
-**Raising different exception types:**
+### Raising Different Exception Types
 
 ```python
 def get_user(user_id, users):
@@ -484,7 +525,7 @@ def get_user(user_id, users):
     return users[user_id]
 ```
 
-**Re-raising — catch, do something, then let it propagate:**
+### Re-raising — Catch, Do Something, Then Let It Propagate
 
 ```python
 def load_config(path):
@@ -499,7 +540,7 @@ def load_config(path):
 # raise e  — also works but resets the traceback to this line
 ```
 
-**`raise` inside `except` — exception chaining:**
+### raise Inside except — Exception Chaining
 
 ```python
 try:
@@ -513,7 +554,7 @@ except ValueError as e:
 
 `from e` links the two exceptions. The original cause is preserved in the traceback. This is the right way to wrap a low-level exception in a higher-level one.
 
-**`raise` with no argument — only valid inside `except`:**
+### raise With No Argument — Only Valid Inside except
 
 ```python
 try:

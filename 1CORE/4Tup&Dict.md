@@ -1,14 +1,8 @@
-Let's go. Full topic, nothing skipped.
-
----
-
-## 0.5 Tuples, Sets & Dictionaries
+# 0.5 Tuples, Sets & Dictionaries
 
 ---
 
 # TUPLES
-
----
 
 ## Creating a Tuple
 
@@ -38,7 +32,7 @@ t = tuple("Python")      # from string → ('P', 'y', 't', 'h', 'o', 'n')
 t = tuple(range(5))      # from range → (0, 1, 2, 3, 4)
 ```
 
-### Single-element tuple — the comma is mandatory
+### Single-Element Tuple — The Comma is Mandatory
 
 ```python
 # These are NOT tuples
@@ -70,10 +64,12 @@ t = (1, 2, 3)
 
 t[0] = 99         # TypeError: 'tuple' object does not support item assignment
 t.append(4)       # AttributeError: 'tuple' object has no attribute 'append'
-t[0:2] = (9, 9)  # TypeError: 'tuple' object does not support item assignment
+t[0:2] = (9, 9)   # TypeError: 'tuple' object does not support item assignment
 ```
 
-**Tuples support reading operations — just not writing:**
+### Tuples Support Reading Operations
+
+Just not writing:
 
 ```python
 t = (10, 20, 30, 20, 40)
@@ -87,7 +83,9 @@ print(t.count(20))   # 2        — count works
 print(t.index(30))   # 2        — index works
 ```
 
-**Immutability is shallow — if a tuple contains a mutable object, that object can still be changed:**
+### Immutability is Shallow
+
+If a tuple contains a mutable object, that object can still be changed:
 
 ```python
 t = (1, [2, 3], 4)
@@ -103,7 +101,7 @@ The tuple can't change which objects it points to, but if one of those objects i
 
 ## When to Use Tuples
 
-**1. Fixed collections that should never change:**
+### Fixed Collections That Should Never Change
 
 ```python
 RGB_RED   = (255, 0, 0)
@@ -113,7 +111,7 @@ RGB_BLUE  = (0, 0, 255)
 WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri")
 ```
 
-**2. Returning multiple values from a function:**
+### Returning Multiple Values from a Function
 
 ```python
 def get_dimensions():
@@ -122,8 +120,11 @@ def get_dimensions():
 width, height = get_dimensions()
 print(width)    # 1920
 print(height)   # 1080
+```
 
-# Without unpacking
+Without unpacking:
+
+```python
 dims = get_dimensions()
 print(dims)        # (1920, 1080)
 print(dims[0])     # 1920
@@ -131,7 +132,7 @@ print(dims[0])     # 1920
 
 This is used everywhere in Python. `os.path.split()`, `divmod()`, `enumerate()`, `dict.items()` — all return tuples.
 
-**3. Dictionary keys — tuples are hashable, lists are not:**
+### Dictionary Keys — Tuples are Hashable, Lists are Not
 
 ```python
 # Using a tuple as a dict key — works
@@ -144,15 +145,12 @@ print(locations[(40.7128, -74.0060)])   # New York
 locations[[40.7128, -74.0060]] = "New York"   # TypeError: unhashable type: 'list'
 ```
 
-**4. Slightly faster and more memory-efficient than lists:**
+### Slightly Faster and More Memory-Efficient Than Lists
 
 ```python
 import sys
 print(sys.getsizeof([1, 2, 3]))    # 88 bytes
 print(sys.getsizeof((1, 2, 3)))    # 64 bytes
-
-import timeit
-# tuple creation is faster than list creation
 ```
 
 Use tuples for data that is logically fixed. Use lists for data that grows or changes.
@@ -161,27 +159,40 @@ Use tuples for data that is logically fixed. Use lists for data that grows or ch
 
 ## Tuple Unpacking
 
+Basic unpacking:
+
 ```python
-# Basic unpacking
 point = (10, 20)
 x, y = point
 print(x)    # 10
 print(y)    # 20
+```
 
-# Works without parentheses too
+Works without parentheses too:
+
+```python
 x, y = 10, 20
+```
 
-# Nested tuple unpacking
+### Nested Tuple Unpacking
+
+```python
 t = (1, (2, 3), 4)
 a, (b, c), d = t
 print(a, b, c, d)    # 1 2 3 4
+```
 
-# Swap — the classic
+### Swap — The Classic
+
+```python
 a, b = 5, 10
 a, b = b, a
 print(a, b)    # 10 5
+```
 
-# Starred unpacking — same as lists
+### Starred Unpacking — Same as Lists
+
+```python
 first, *rest = (1, 2, 3, 4, 5)
 print(first)    # 1
 print(rest)     # [2, 3, 4, 5]   ← note: rest is a list, not a tuple
@@ -189,33 +200,36 @@ print(rest)     # [2, 3, 4, 5]   ← note: rest is a list, not a tuple
 *start, last = (1, 2, 3, 4, 5)
 print(start)    # [1, 2, 3, 4]
 print(last)     # 5
+```
 
-# Unpacking in a loop — extremely common
+### Unpacking in a Loop — Extremely Common
+
+```python
 pairs = [(1, "one"), (2, "two"), (3, "three")]
 for num, word in pairs:
     print(f"{num} = {word}")
 ```
 
-**`_` as a throwaway variable:**
+### _ as a Throwaway Variable
+
+When you only want some values:
 
 ```python
-# When you only want some values
 point_3d = (10, 20, 30)
 x, y, _ = point_3d     # _ means "I don't care about this value"
 print(x, y)    # 10 20
+```
 
-# Skip multiple values
+Skip multiple values:
+
+```python
 first, *_, last = (1, 2, 3, 4, 5)
 print(first, last)    # 1 5
 ```
 
 ---
 
----
-
 # SETS
-
----
 
 ## Creating a Set
 
@@ -238,7 +252,9 @@ s = set("hello")
 print(s)    # {'h', 'e', 'l', 'o'}  — unique characters, unordered
 ```
 
-### Empty set — must use `set()`, not `{}`
+### Empty Set — Must Use set()
+
+Not `{}`:
 
 ```python
 empty_set  = set()        # correct
@@ -257,14 +273,19 @@ This is a very common mistake. `{}` always creates a dict in Python.
 ```python
 s = {1, 1, 2, 2, 3, 3, 3}
 print(s)    # {1, 2, 3}  — duplicates silently dropped
+```
 
-# Practical use — deduplicate a list
+Practical use — deduplicate a list:
+
+```python
 names = ["Alice", "Bob", "Alice", "Charlie", "Bob", "Alice"]
 unique = list(set(names))
 print(unique)    # ['Alice', 'Bob', 'Charlie']  — order not guaranteed
 ```
 
-**Preserving order while deduplicating (when order matters):**
+### Preserving Order While Deduplicating
+
+When order matters:
 
 ```python
 names = ["Alice", "Bob", "Alice", "Charlie", "Bob"]
@@ -290,8 +311,9 @@ print(s[1:3])   # TypeError: 'set' object is not subscriptable
 
 You cannot access elements by position. You can only iterate or test membership.
 
+Iteration works, but order is not guaranteed:
+
 ```python
-# Iteration works, but order is not guaranteed
 s = {3, 1, 4, 1, 5, 9, 2}
 for item in s:
     print(item)    # prints in arbitrary order, not insertion order
@@ -303,26 +325,32 @@ for item in s:
 
 This is the main reason to use a set over a list.
 
+Set lookup — O(1) — constant time regardless of size:
+
 ```python
-# Set lookup — O(1) — constant time regardless of size
 large_set = set(range(1_000_000))
 print(999999 in large_set)    # True  — instant
+```
 
-# List lookup — O(n) — scans from beginning
+List lookup — O(n) — scans from beginning:
+
+```python
 large_list = list(range(1_000_000))
 print(999999 in large_list)   # True  — slow for large lists
 ```
 
-**When to choose set over list for lookups:**
+### When to Choose Set Over List for Lookups
 
+**Bad — checking membership in a list repeatedly:**
 ```python
-# BAD — checking membership in a list repeatedly
 valid_users = ["alice", "bob", "charlie", "diana"]
 for username in incoming_requests:
     if username in valid_users:    # O(n) every time
         allow()
+```
 
-# GOOD — convert to set first
+**Good — convert to set first:**
+```python
 valid_users = {"alice", "bob", "charlie", "diana"}
 for username in incoming_requests:
     if username in valid_users:    # O(1) every time
@@ -342,24 +370,38 @@ print(s)    # {1, 2, 3, 4}
 
 s.add(2)    # adding a duplicate — silently does nothing
 print(s)    # {1, 2, 3, 4}
+```
 
-# .remove() — raises KeyError if not found
+### .remove() — Raises KeyError if Not Found
+
+```python
 s.remove(3)
 print(s)      # {1, 2, 4}
 s.remove(99)  # KeyError: 99
+```
 
-# .discard() — safe, no error if not found
+### .discard() — Safe, No Error if Not Found
+
+```python
 s.discard(2)
 print(s)      # {1, 4}
 s.discard(99) # no error — silently does nothing
+```
 
-# .pop() — removes and returns an ARBITRARY element (not the last one)
+### .pop() — Removes and Returns an Arbitrary Element
+
+Not the last one:
+
+```python
 s = {10, 20, 30}
 item = s.pop()
 print(item)   # some element — you can't predict which one
 print(s)      # remaining two elements
+```
 
-# .clear() — removes all elements
+### .clear() — Removes All Elements
+
+```python
 s.clear()
 print(s)    # set()
 ```
@@ -377,21 +419,21 @@ a = {1, 2, 3, 4, 5}
 b = {3, 4, 5, 6, 7}
 ```
 
-### Union `|` — all elements from both
+### Union | — All Elements From Both
 
 ```python
 print(a | b)            # {1, 2, 3, 4, 5, 6, 7}
 print(a.union(b))       # same result
 ```
 
-### Intersection `&` — only elements in both
+### Intersection & — Only Elements In Both
 
 ```python
 print(a & b)               # {3, 4, 5}
 print(a.intersection(b))   # same result
 ```
 
-### Difference `-` — in first but not second
+### Difference - — In First But Not Second
 
 ```python
 print(a - b)              # {1, 2}       — in a but not b
@@ -399,7 +441,7 @@ print(b - a)              # {6, 7}       — in b but not a
 print(a.difference(b))    # {1, 2}       — same as a - b
 ```
 
-### Symmetric Difference `^` — in either but not both
+### Symmetric Difference ^ — In Either But Not Both
 
 ```python
 print(a ^ b)                          # {1, 2, 6, 7}
@@ -419,7 +461,7 @@ print(large >= small)            # True  — superset with operator
 print(small < large)             # True  — proper subset (not equal)
 ```
 
-### Disjoint — no elements in common
+### Disjoint — No Elements In Common
 
 ```python
 a = {1, 2, 3}
@@ -427,7 +469,7 @@ b = {4, 5, 6}
 print(a.isdisjoint(b))    # True — no overlap
 ```
 
-### Update in-place
+### Update In-Place
 
 ```python
 a = {1, 2, 3}
@@ -440,7 +482,7 @@ print(a)    # {2, 3, 4}
 
 ---
 
-## `frozenset` — Immutable Set
+## frozenset — Immutable Set
 
 A set that cannot be modified after creation. Can be used as a dictionary key or stored inside another set.
 
@@ -450,13 +492,19 @@ print(fs)           # frozenset({1, 2, 3})
 print(type(fs))     # <class 'frozenset'>
 
 fs.add(4)           # AttributeError: 'frozenset' object has no attribute 'add'
+```
 
-# frozenset as a dict key — works because it's hashable
+**frozenset as a dict key — works because it's hashable:**
+
+```python
 permissions = {}
 permissions[frozenset(["read", "write"])] = "editor"
 permissions[frozenset(["read"])]          = "viewer"
+```
 
-# All non-mutating set operations work
+All non-mutating set operations work:
+
+```python
 a = frozenset({1, 2, 3})
 b = frozenset({2, 3, 4})
 print(a & b)    # frozenset({2, 3})
@@ -465,41 +513,45 @@ print(a | b)    # frozenset({1, 2, 3, 4})
 
 ---
 
----
-
 # DICTIONARIES
-
----
 
 ## Creating a Dictionary
 
 A dictionary stores key-value pairs. Keys must be unique and hashable. Values can be anything.
 
+**Literal syntax:**
 ```python
-# Literal syntax
 person = {"name": "Mohamed", "age": 25, "city": "Chennai"}
 print(person)         # {'name': 'Mohamed', 'age': 25, 'city': 'Chennai'}
 print(type(person))   # <class 'dict'>
+```
 
-# Empty dict — two ways
+**Empty dict — two ways:**
+```python
 empty1 = {}
 empty2 = dict()
+```
 
-# Using dict() constructor
+**Using dict() constructor:**
+```python
 person = dict(name="Mohamed", age=25, city="Chennai")
 print(person)   # {'name': 'Mohamed', 'age': 25, 'city': 'Chennai'}
+```
 
-# From a list of tuples
+**From a list of tuples:**
+```python
 person = dict([("name", "Mohamed"), ("age", 25)])
+```
 
-# From two lists using zip
+**From two lists using zip:**
+```python
 keys   = ["name", "age", "city"]
 values = ["Mohamed", 25, "Chennai"]
 person = dict(zip(keys, values))
 print(person)   # {'name': 'Mohamed', 'age': 25, 'city': 'Chennai'}
 ```
 
-**Valid key types — must be hashable:**
+### Valid Key Types — Must Be Hashable
 
 ```python
 d = {}
@@ -517,7 +569,7 @@ d[{"a": 1}]   = "dict key"   # TypeError: unhashable type: 'dict'
 
 ## Accessing Values
 
-### `d[key]` — direct access, raises `KeyError` if missing
+### d[key] — Direct Access, Raises KeyError if Missing
 
 ```python
 person = {"name": "Mohamed", "age": 25}
@@ -527,7 +579,7 @@ print(person["age"])     # 25
 print(person["city"])    # KeyError: 'city'
 ```
 
-### `.get(key, default)` — safe access, returns default if missing
+### .get(key, default) — Safe Access, Returns Default if Missing
 
 ```python
 person = {"name": "Mohamed", "age": 25}
@@ -538,13 +590,15 @@ print(person.get("city", "unknown"))  # unknown — custom default
 print(person.get("age", 0))         # 25      — key exists, default ignored
 ```
 
-**When to use which:**
+### When to Use Which
 
+**Use d[key] when the key MUST exist — absence is a bug:**
 ```python
-# Use d[key] when the key MUST exist — absence is a bug
 user_id = request["user_id"]       # if missing, you want to know immediately
+```
 
-# Use .get() when missing is a normal case
+**Use .get() when missing is a normal case:**
+```python
 theme = settings.get("theme", "light")   # default to light theme
 ```
 
@@ -562,8 +616,11 @@ print(person)   # {'name': 'Mohamed', 'age': 25, 'city': 'Chennai'}
 # Updating an existing key — overwrites silently
 person["age"] = 26
 print(person)   # {'name': 'Mohamed', 'age': 26, 'city': 'Chennai'}
+```
 
-# .setdefault() — sets a value ONLY if the key doesn't exist
+### .setdefault() — Sets a Value ONLY if the Key Doesn't Exist
+
+```python
 person.setdefault("country", "India")    # adds it
 person.setdefault("name", "Unknown")     # does NOT overwrite — name already exists
 print(person["country"])    # India
@@ -574,31 +631,44 @@ print(person["name"])       # Mohamed
 
 ## Deleting
 
+### del — Delete by Key, No Return Value
+
 ```python
 person = {"name": "Mohamed", "age": 25, "city": "Chennai"}
 
-# del — delete by key, no return value
 del person["city"]
 print(person)   # {'name': 'Mohamed', 'age': 25}
 del person["xyz"]   # KeyError: 'xyz'
+```
 
-# .pop(key) — delete and return the value
+### .pop(key) — Delete and Return the Value
+
+```python
 age = person.pop("age")
 print(age)      # 25
 print(person)   # {'name': 'Mohamed'}
 person.pop("xyz")    # KeyError: 'xyz'
+```
 
-# .pop(key, default) — safe pop, returns default if missing
+### .pop(key, default) — Safe Pop, Returns Default if Missing
+
+```python
 val = person.pop("xyz", None)
 print(val)      # None  — no error
+```
 
-# .popitem() — removes and returns the LAST inserted key-value pair as a tuple
+### .popitem() — Removes and Returns the Last Inserted Key-Value Pair
+
+```python
 person = {"name": "Mohamed", "age": 25, "city": "Chennai"}
 item = person.popitem()
 print(item)     # ('city', 'Chennai')  — last inserted
 print(person)   # {'name': 'Mohamed', 'age': 25}
+```
 
-# .clear() — removes everything
+### .clear() — Removes Everything
+
+```python
 person.clear()
 print(person)   # {}
 ```
@@ -614,11 +684,16 @@ person = {"name": "Mohamed", "age": 25}
 print("name" in person)      # True
 print("city" in person)      # False
 print("Mohamed" in person)   # False  — "Mohamed" is a VALUE, not a key
+```
 
-# Check values
+Check values:
+
+```python
 print("Mohamed" in person.values())   # True
+```
 
-# 'not in'
+**'not in':**
+```python
 print("city" not in person)   # True
 ```
 
@@ -626,35 +701,48 @@ print("city" not in person)   # True
 
 ## Iterating
 
+Iterate keys (default):
+
 ```python
 person = {"name": "Mohamed", "age": 25, "city": "Chennai"}
 
-# Iterate keys (default)
 for key in person:
     print(key)
 # name
 # age
 # city
+```
 
-# Iterate keys explicitly
+Iterate keys explicitly:
+
+```python
 for key in person.keys():
     print(key)
+```
 
-# Iterate values
+Iterate values:
+
+```python
 for value in person.values():
     print(value)
 # Mohamed
 # 25
 # Chennai
+```
 
-# Iterate key-value pairs — most common
+### Iterate Key-Value Pairs — Most Common
+
+```python
 for key, value in person.items():
     print(f"{key}: {value}")
 # name: Mohamed
 # age: 25
 # city: Chennai
+```
 
-# With enumerate on items
+With enumerate on items:
+
+```python
 for i, (key, value) in enumerate(person.items()):
     print(f"{i}. {key} = {value}")
 # 0. name = Mohamed
@@ -664,7 +752,7 @@ for i, (key, value) in enumerate(person.items()):
 
 ---
 
-## View Objects — `.keys()`, `.values()`, `.items()`
+## View Objects — .keys(), .values(), .items()
 
 These don't return lists — they return **live views** of the dictionary.
 
@@ -678,18 +766,24 @@ items  = person.items()
 print(keys)    # dict_keys(['name', 'age'])
 print(values)  # dict_values(['Mohamed', 25])
 print(items)   # dict_items([('name', 25), ('age', 25)])
+```
 
-# Live view — changes to dict are reflected immediately
+Live view — changes to dict are reflected immediately:
+
+```python
 person["city"] = "Chennai"
 print(keys)    # dict_keys(['name', 'age', 'city'])  — updated automatically
+```
 
-# Convert to list if you need a snapshot
+Convert to list if you need a snapshot:
+
+```python
 keys_list = list(person.keys())
 ```
 
 ---
 
-## `.update()` — Merging Dictionaries
+## .update() — Merging Dictionaries
 
 ```python
 person = {"name": "Mohamed", "age": 25}
@@ -697,20 +791,23 @@ extra  = {"city": "Chennai", "age": 26}    # 'age' exists in both
 
 person.update(extra)
 print(person)   # {'name': 'Mohamed', 'age': 26, 'city': 'Chennai'}
-# existing keys are overwritten with values from the argument
 ```
 
-**Other ways to merge (Python 3.9+):**
+Existing keys are overwritten with values from the argument.
 
+### Other Ways to Merge (Python 3.9+)
+
+**Merge operator | — returns new dict:**
 ```python
 a = {"name": "Mohamed", "age": 25}
 b = {"city": "Chennai", "age": 26}
 
-# Merge operator | — returns new dict
 merged = a | b
 print(merged)   # {'name': 'Mohamed', 'age': 26, 'city': 'Chennai'}
+```
 
-# Update operator |= — in-place
+**Update operator |= — in-place:**
+```python
 a |= b
 print(a)        # {'name': 'Mohamed', 'age': 26, 'city': 'Chennai'}
 ```
@@ -757,21 +854,30 @@ print(user["address"]["city"])       # Chennai
 print(user["address"]["state"])      # Tamil Nadu
 print(user["skills"][0])             # Python
 print(user["skills"][-1])            # PostgreSQL
+```
 
-# Modifying nested values
+Modifying nested values:
+
+```python
 user["address"]["city"] = "Bangalore"
 user["skills"].append("Docker")
+```
 
-# Safe nested access with .get()
+Safe nested access with .get():
+
+```python
 city = user.get("address", {}).get("city", "unknown")
 print(city)    # Chennai
+```
 
-# Missing key at top level — without the {} default, second .get() would fail
+Missing key at top level — without the {} default, second .get() would fail:
+
+```python
 zipcode = user.get("address", {}).get("zipcode", "N/A")
 print(zipcode)    # N/A
 ```
 
-**Iterating nested dicts:**
+### Iterating Nested Dicts
 
 ```python
 config = {
@@ -812,8 +918,9 @@ print(blank)    # {'name': 0, 'age': 0, 'city': 0}
 
 ## Putting It All Together
 
+A realistic example — processing student records:
+
 ```python
-# A realistic example — processing student records
 students = [
     {"name": "Mohamed", "score": 88, "city": "Chennai"},
     {"name": "Priya",   "score": 92, "city": "Mumbai"},
@@ -850,19 +957,19 @@ print(score_lookup.get("Unknown", 0))   # 0
 
 ## Key Takeaways
 
-**Tuples**
+**Tuples:**
 - The comma makes a tuple, not the parentheses. `(1)` is an int. `(1,)` is a tuple.
 - Immutability is shallow — nested mutable objects can still be mutated.
 - Use tuples for fixed data, dict keys, and returning multiple values from functions.
 - `*rest` in unpacking always gives a list, even from a tuple.
 
-**Sets**
+**Sets:**
 - `{}` is a dict. Empty set must be `set()`.
 - Sets are unordered — no indexing, no slicing.
 - `in` on a set is O(1). On a list it's O(n). Use sets for repeated membership checks.
 - `.remove()` raises `KeyError`. `.discard()` is silent. Use `.discard()` when unsure.
 
-**Dictionaries**
+**Dictionaries:**
 - `d[key]` raises `KeyError`. `d.get(key, default)` is safe. Choose based on whether absence is a bug.
 - `in` checks keys only — O(1). To check values use `in d.values()`.
 - `.keys()`, `.values()`, `.items()` are live views, not lists.

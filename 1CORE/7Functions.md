@@ -1,10 +1,4 @@
-Let's go. Full topic, nothing skipped.
-
----
-
-## 0.8 Functions — Basics
-
----
+# 0.8 Functions — Basics
 
 ## Defining and Calling a Function
 
@@ -20,12 +14,12 @@ greet()     # Hello, World!
 greet()     # Hello, World!  — call it as many times as you want
 ```
 
-**The `def` keyword, function name, parentheses, and colon are all required:**
+### The def Keyword, Function Name, Parentheses, and Colon are All Required
 
 ```python
 # SyntaxError — missing colon
-def greet()
-    print("hello")
+if age >= 18
+    print("adult")
 
 # SyntaxError — missing parentheses
 def greet:
@@ -40,7 +34,11 @@ def greet():
     print("hello")
 ```
 
-**Function naming follows the same rules as variables — `snake_case` by convention:**
+Python uses indentation to define blocks — not curly braces like most languages. Standard is 4 spaces. Mixing tabs and spaces causes errors.
+
+### Function Naming Follows the Same Rules as Variables
+
+`snake_case` by convention:
 
 ```python
 def calculate_total():   ...   # good
@@ -49,7 +47,9 @@ def validateInput():     ...   # works but not Pythonic — camelCase
 def Calculate_Total():   ...   # works but not Pythonic — PascalCase is for classes
 ```
 
-**Functions are objects — you can store them in variables:**
+### Functions are Objects
+
+You can store them in variables:
 
 ```python
 def greet():
@@ -88,7 +88,7 @@ result = add(10, 20)    # 10 and 20 are arguments
 
 ---
 
-## `return` Statement
+## return Statement
 
 Sends a value back to the caller. Exits the function immediately.
 
@@ -100,7 +100,9 @@ result = add(10, 20)
 print(result)    # 30
 ```
 
-**`return` exits immediately — code after it does not run:**
+### return Exits Immediately
+
+Code after it does not run:
 
 ```python
 def check(n):
@@ -115,7 +117,7 @@ print(check(-3))    # negative
 print(check(0))     # zero
 ```
 
-**Function returns `None` if there is no `return` statement:**
+### Function Returns None if There is No return Statement
 
 ```python
 def greet(name):
@@ -126,7 +128,7 @@ print(result)           # None
 print(result is None)   # True
 ```
 
-**`return` with no value also returns `None`:**
+### return with No Value Also Returns None
 
 ```python
 def do_something(x):
@@ -140,7 +142,7 @@ print(result)    # None  — bare return triggered
 do_something(3)  # 6
 ```
 
-**The return value must be captured to be used:**
+### The Return Value Must Be Captured to Be Used
 
 ```python
 def square(n):
@@ -175,7 +177,7 @@ print(dims[0])    # 1920
 print(type(dims)) # <class 'tuple'>
 ```
 
-**Multiple return values with different types:**
+### Multiple Return Values with Different Types
 
 ```python
 def analyze_scores(scores):
@@ -194,7 +196,7 @@ print(f"Highest: {high}")     # 92
 print(f"Lowest:  {low}")      # 45
 ```
 
-**Using `_` to discard values you don't need:**
+### Using _ to Discard Values You Don't Need
 
 ```python
 total, _, highest, _ = analyze_scores(scores)
@@ -216,7 +218,9 @@ greet("Mohamed", "Hi")        # Hi, Mohamed!      — overrides default
 greet("Mohamed", "Namaste")   # Namaste, Mohamed! — overrides default
 ```
 
-**Defaults must come after non-defaults — otherwise `SyntaxError`:**
+### Defaults Must Come After Non-Defaults
+
+Otherwise `SyntaxError`:
 
 ```python
 # SyntaxError — non-default after default
@@ -228,7 +232,7 @@ def greet(name, greeting="Hello"):
     print(f"{greeting}, {name}")
 ```
 
-**Multiple defaults:**
+### Multiple Defaults
 
 ```python
 def create_user(name, role="viewer", active=True, score=0):
@@ -249,7 +253,7 @@ create_user("Sara", score=95)
 
 ---
 
-### The Mutable Default Argument Trap
+## The Mutable Default Argument Trap
 
 **Never use a mutable object (list, dict, set) as a default value.**
 
@@ -267,8 +271,9 @@ print(add_item("cherry"))   # ['apple', 'banana', 'cherry']  ← keeps accumulat
 
 The default list `[]` is created once at function definition time and reused on every call that doesn't pass `items`. It's the same list object every time.
 
+### Correct Approach — Use None as Default, Create Fresh Object Inside
+
 ```python
-# CORRECT — use None as default, create fresh object inside
 def add_item(item, items=None):
     if items is None:
         items = []          # new list created on every call
@@ -307,20 +312,24 @@ introduce(name="Mohamed", city="Chennai", age=25)
 introduce("Mohamed", city="Chennai", age=25)
 ```
 
-**Positional arguments must always come before keyword arguments:**
+### Positional Arguments Must Always Come Before Keyword Arguments
 
 ```python
 introduce(age=25, "Mohamed", "Chennai")
 # SyntaxError: positional argument follows keyword argument
 ```
 
-**Keyword arguments make calls self-documenting:**
+### Keyword Arguments Make Calls Self-Documenting
+
+Hard to read — what do these values mean?
 
 ```python
-# Hard to read — what do these values mean?
 create_account("Mohamed", True, False, 30, "admin")
+```
 
-# Clear — every argument is labelled
+Clear — every argument is labelled:
+
+```python
 create_account(
     name="Mohamed",
     is_active=True,
@@ -342,14 +351,14 @@ def add(a, b):
     return a + b
 ```
 
-**Accessed via `__doc__` or `help()`:**
+### Accessed via __doc__ or help()
 
 ```python
 print(add.__doc__)    # Returns the sum of a and b.
 help(add)             # displays formatted documentation
 ```
 
-**Multi-line docstring — the standard format:**
+### Multi-Line Docstring — The Standard Format
 
 ```python
 def calculate_discount(price, discount_percent, max_discount=None):
@@ -378,19 +387,20 @@ def calculate_discount(price, discount_percent, max_discount=None):
     return price - discount
 ```
 
-**Docstring conventions:**
+### Docstring Conventions
+
+One-liner — for simple, obvious functions:
 
 ```python
-# One-liner — for simple, obvious functions
 def double(n):
     """Return n multiplied by 2."""
     return n * 2
-
-# Multi-line — for anything with parameters, return values, or exceptions
-# First line: short summary
-# Blank line
-# Args, Returns, Raises sections
 ```
+
+Multi-line — for anything with parameters, return values, or exceptions:
+- First line: short summary
+- Blank line
+- Args, Returns, Raises sections
 
 Docstrings are not comments — they're accessible at runtime. IDEs display them on hover. They're how Python's `help()` system works.
 
@@ -400,7 +410,7 @@ Docstrings are not comments — they're accessible at runtime. IDEs display them
 
 Where a variable can be seen and used. Python has LEGB scope rules: **L**ocal → **E**nclosing → **G**lobal → **B**uilt-in.
 
-### Local scope — variables inside a function
+### Local Scope — Variables Inside a Function
 
 ```python
 def greet():
@@ -424,7 +434,7 @@ show(10)    # result = 20
 # These are separate 'result' variables — no connection between calls
 ```
 
-### Global scope — variables defined at module level
+### Global Scope — Variables Defined at Module Level
 
 ```python
 name = "Mohamed"     # global variable
@@ -436,7 +446,7 @@ greet()              # Mohamed
 print(name)          # Mohamed
 ```
 
-**Reading a global works. Modifying it does not — without `global`:**
+### Reading a Global Works. Modifying It Does Not — Without global
 
 ```python
 count = 0
@@ -453,7 +463,7 @@ When Python sees an assignment to a name inside a function, it marks that name a
 
 ---
 
-## `global` Keyword
+## global Keyword
 
 Declares that a name inside a function refers to the global variable.
 
@@ -470,7 +480,7 @@ increment()
 print(count)    # 3
 ```
 
-**`global` must be declared before using the variable:**
+### global Must Be Declared Before Using the Variable
 
 ```python
 total = 100
@@ -485,10 +495,13 @@ add_to_total(25)   # total is now 175
 print(total)       # 175
 ```
 
-### Use `global` sparingly — here's why
+---
+
+## Use global Sparingly — Here's Why
+
+**Bad — global state makes code hard to follow and test:**
 
 ```python
-# BAD — global state makes code hard to follow and test
 score = 0
 
 def add_points(n):
@@ -504,8 +517,9 @@ def reset():
 # Hard to test in isolation
 ```
 
+**Good — pass and return values instead:**
+
 ```python
-# GOOD — pass and return values instead
 def add_points(score, n):
     return score + n
 
@@ -523,14 +537,13 @@ The only times `global` is acceptable are simple scripts, counters in small prog
 
 ---
 
-## `pass` Statement
+## pass Statement
 
 A placeholder that does nothing. Used when Python requires a statement syntactically but you have nothing to put there yet.
 
 ```python
 # Empty function — SyntaxError without pass
 def todo():
-    # SyntaxError if this is the only line
     pass
 
 # Empty class
@@ -545,7 +558,7 @@ def process(x):
         print("negative")
 ```
 
-**`pass` vs `...` (Ellipsis) — both work as placeholders:**
+### pass vs ... (Ellipsis) — Both Work as Placeholders
 
 ```python
 def not_implemented_yet():
@@ -555,7 +568,7 @@ def also_not_implemented():
     ...    # Ellipsis — often used in type stubs and abstract definitions
 ```
 
-**`pass` in exception handling — silently ignore:**
+### pass in Exception Handling — Silently Ignore
 
 ```python
 try:
@@ -570,8 +583,9 @@ except SomeError:
 
 ## Putting It All Together
 
+A realistic function combining everything above:
+
 ```python
-# A realistic function combining everything above
 def calculate_final_grade(name, scores, passing_score=60, weights=None):
     """
     Calculate a student's final grade from a list of scores.

@@ -1,16 +1,8 @@
-Let's go. Full topic, nothing skipped.
+# 0.7 Loops
 
----
-
-## 0.7 Loops
-
----
-
-## `for` Loops
+## for Loops
 
 A `for` loop iterates over any iterable — list, string, dict, tuple, set, range, or anything Python can step through one item at a time.
-
----
 
 ### Iterating a List
 
@@ -40,7 +32,7 @@ for n in numbers:
 print(n)    # 40
 ```
 
-**Modifying a list while iterating — never do this:**
+### Modifying a List While Iterating — Never Do This
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -50,13 +42,19 @@ for n in nums:
     if n % 2 == 0:
         nums.remove(n)
 print(nums)    # [1, 3, 5]  — looks right but only by accident for this case
+```
 
-# CORRECT — iterate a copy, modify the original
+**Correct approach — iterate a copy, modify the original:**
+
+```python
 for n in nums[:]:           # nums[:] is a shallow copy
     if n % 2 == 0:
         nums.remove(n)
+```
 
-# BEST — build a new list
+**Best approach — build a new list:**
+
+```python
 nums = [n for n in nums if n % 2 != 0]
 ```
 
@@ -74,16 +72,22 @@ for char in "hello":
 # l
 # l
 # o
+```
 
-# Count vowels
+Count vowels:
+
+```python
 word = "Mohamed"
 vowels = 0
 for char in word.lower():
     if char in "aeiou":
         vowels += 1
 print(vowels)    # 4
+```
 
-# Build reversed string
+Build reversed string:
+
+```python
 word = "Python"
 reversed_word = ""
 for char in word:
@@ -105,19 +109,28 @@ for key in person:
 # name
 # age
 # city
+```
 
-# Iterate keys explicitly
+Iterate keys explicitly:
+
+```python
 for key in person.keys():
     print(key)
+```
 
-# Iterate values
+Iterate values:
+
+```python
 for value in person.values():
     print(value)
 # Mohamed
 # 25
 # Chennai
+```
 
-# Iterate key-value pairs — most common, use this
+### Iterate Key-Value Pairs — Most Common, Use This
+
+```python
 for key, value in person.items():
     print(f"{key}: {value}")
 # name: Mohamed
@@ -125,7 +138,9 @@ for key, value in person.items():
 # city: Chennai
 ```
 
-**Never modify a dict's keys while iterating — raises `RuntimeError`:**
+### Never Modify a Dict's Keys While Iterating
+
+Raises `RuntimeError`:
 
 ```python
 d = {"a": 1, "b": 2, "c": 3}
@@ -134,8 +149,11 @@ d = {"a": 1, "b": 2, "c": 3}
 for key in d:
     if key == "b":
         del d[key]    # RuntimeError: dictionary changed size during iteration
+```
 
-# CORRECT — iterate a copy of keys
+**Correct approach — iterate a copy of keys:**
+
+```python
 for key in list(d.keys()):
     if key == "b":
         del d[key]
@@ -144,22 +162,29 @@ print(d)    # {'a': 1, 'c': 3}
 
 ---
 
-### `range()`
+### range()
 
 Generates a sequence of integers. Does not create a list in memory — it's a lazy iterator.
 
+**range(stop) — 0 to stop-1:**
+
 ```python
-# range(stop) — 0 to stop-1
 for i in range(5):
     print(i)
 # 0 1 2 3 4
+```
 
-# range(start, stop) — start to stop-1
+**range(start, stop) — start to stop-1:**
+
+```python
 for i in range(1, 6):
     print(i)
 # 1 2 3 4 5
+```
 
-# range(start, stop, step)
+**range(start, stop, step):**
+
+```python
 for i in range(0, 10, 2):
     print(i)
 # 0 2 4 6 8
@@ -173,7 +198,9 @@ for i in range(0, 11, 3):
 # 0 3 6 9
 ```
 
-**`range()` is lazy — it doesn't create all the numbers in memory:**
+### range() is Lazy
+
+Does not create all the numbers in memory:
 
 ```python
 r = range(1_000_000)
@@ -184,7 +211,7 @@ print(len(r))      # 1000000
 print(list(r[:5])) # [0, 1, 2, 3, 4]
 ```
 
-**Looping with index using `range(len(...))`:**
+### Looping with Index Using range(len(...))
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -194,13 +221,13 @@ for i in range(len(fruits)):
 # 0: apple
 # 1: banana
 # 2: cherry
-
-# Better — use enumerate() instead (covered next)
 ```
+
+Better — use `enumerate()` instead (covered next).
 
 ---
 
-### `enumerate()` — Index + Value Together
+## enumerate() — Index + Value Together
 
 When you need both the index and the value, `enumerate()` is the Pythonic way.
 
@@ -212,8 +239,11 @@ for i, fruit in enumerate(fruits):
 # 0: apple
 # 1: banana
 # 2: cherry
+```
 
-# Custom start index
+Custom start index:
+
+```python
 for i, fruit in enumerate(fruits, start=1):
     print(f"{i}. {fruit}")
 # 1. apple
@@ -221,7 +251,7 @@ for i, fruit in enumerate(fruits, start=1):
 # 3. cherry
 ```
 
-**What `enumerate()` actually returns — pairs of (index, value):**
+### What enumerate() Actually Returns — Pairs of (index, value)
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -232,21 +262,23 @@ print(list(enumerate(fruits, start=1)))
 # [(1, 'apple'), (2, 'banana'), (3, 'cherry')]
 ```
 
-**`range(len(...))` vs `enumerate()` — always prefer `enumerate()`:**
+### range(len(...)) vs enumerate() — Always Prefer enumerate()
+
+Unpythonic:
 
 ```python
-fruits = ["apple", "banana", "cherry"]
-
-# Unpythonic
 for i in range(len(fruits)):
     print(i, fruits[i])
+```
 
-# Pythonic
+Pythonic:
+
+```python
 for i, fruit in enumerate(fruits):
     print(i, fruit)
 ```
 
-**Real-world use — finding index of a value:**
+### Real-World Use — Finding Index of a Value
 
 ```python
 scores = [88, 45, 92, 67, 92]
@@ -260,7 +292,7 @@ for i, score in enumerate(scores):
 
 ---
 
-### `zip()` — Pairing Items from Multiple Iterables
+## zip() — Pairing Items from Multiple Iterables
 
 Combines two or more iterables element by element.
 
@@ -275,7 +307,7 @@ for name, score in zip(names, scores):
 # Charlie: 75
 ```
 
-**What `zip()` actually returns — pairs as tuples:**
+### What zip() Actually Returns — Pairs as Tuples
 
 ```python
 names  = ["Alice", "Bob", "Charlie"]
@@ -285,7 +317,7 @@ print(list(zip(names, scores)))
 # [('Alice', 88), ('Bob', 92), ('Charlie', 75)]
 ```
 
-**`zip()` stops at the shortest iterable:**
+### zip() Stops at the Shortest Iterable
 
 ```python
 a = [1, 2, 3, 4, 5]
@@ -299,7 +331,7 @@ for x, y in zip(a, b):
 # 4 and 5 are ignored — b ran out
 ```
 
-**`zip(strict=True)` — raises error if lengths differ (Python 3.10+):**
+### zip(strict=True) — Raises Error if Lengths Differ (Python 3.10+)
 
 ```python
 a = [1, 2, 3]
@@ -311,7 +343,7 @@ for x, y in zip(a, b, strict=True):
 # Use when mismatched lengths mean a bug
 ```
 
-**`zip_longest()` — fill missing values with a default:**
+### zip_longest() — Fill Missing Values with a Default
 
 ```python
 from itertools import zip_longest
@@ -328,7 +360,7 @@ for x, y in zip_longest(a, b, fillvalue="-"):
 # 5 -
 ```
 
-**Three iterables with `zip()`:**
+### Three Iterables with zip()
 
 ```python
 names  = ["Alice", "Bob", "Charlie"]
@@ -342,7 +374,7 @@ for name, score, city in zip(names, scores, cities):
 # Charlie from Delhi scored 75
 ```
 
-**Creating a dict from two lists using `zip()`:**
+### Creating a Dict from Two Lists Using zip()
 
 ```python
 keys   = ["name", "age", "city"]
@@ -354,13 +386,11 @@ print(d)    # {'name': 'Mohamed', 'age': 25, 'city': 'Chennai'}
 
 ---
 
-## `while` Loops
+## while Loops
 
 Runs a block of code repeatedly as long as a condition is `True`. Use when you don't know the number of iterations in advance.
 
----
-
-### Basic `while`
+### Basic while
 
 ```python
 count = 0
@@ -369,12 +399,11 @@ while count < 5:
     print(count)
     count += 1
 # 0 1 2 3 4
-
-# Condition checked BEFORE each iteration
-# When count reaches 5, condition is False → loop ends
 ```
 
-**Forgetting to update the condition → infinite loop:**
+Condition checked BEFORE each iteration. When count reaches 5, condition is `False` → loop ends.
+
+### Forgetting to Update the Condition — Infinite Loop
 
 ```python
 count = 0
@@ -387,7 +416,7 @@ while count < 5:
 
 ---
 
-### Infinite Loop + `break`
+## Infinite Loop + break
 
 `while True:` runs forever intentionally. `break` exits the loop immediately.
 
@@ -401,7 +430,7 @@ while True:
 print("Goodbye")
 ```
 
-**Menu loop — extremely common pattern:**
+### Menu Loop — Extremely Common Pattern
 
 ```python
 while True:
@@ -424,19 +453,23 @@ while True:
 
 ---
 
-### `break` — Exit the Loop Immediately
+## break — Exit the Loop Immediately
 
 Works in both `for` and `while` loops. Exits the innermost loop only.
 
+In a for loop:
+
 ```python
-# In a for loop
 for n in range(10):
     if n == 5:
         break
     print(n)
 # 0 1 2 3 4
+```
 
-# Search and break — stop as soon as found
+### Search and Break — Stop as Soon as Found
+
+```python
 names = ["Alice", "Bob", "Mohamed", "Charlie"]
 target = "Mohamed"
 
@@ -449,7 +482,7 @@ else:
 # Found: Mohamed
 ```
 
-**`break` in nested loops — only exits the innermost loop:**
+### break in Nested Loops — Only Exits the Innermost Loop
 
 ```python
 for i in range(3):
@@ -465,19 +498,23 @@ for i in range(3):
 
 ---
 
-### `continue` — Skip to Next Iteration
+## continue — Skip to Next Iteration
 
 Skips the rest of the current iteration's body and jumps to the next iteration.
 
+Skip even numbers:
+
 ```python
-# Skip even numbers
 for n in range(10):
     if n % 2 == 0:
         continue
     print(n)
 # 1 3 5 7 9
+```
 
-# Skip empty strings
+Skip empty strings:
+
+```python
 words = ["hello", "", "world", "", "python"]
 for word in words:
     if not word:
@@ -488,7 +525,7 @@ for word in words:
 # PYTHON
 ```
 
-**`continue` in a `while` loop:**
+### continue in a while Loop
 
 ```python
 count = 0
@@ -500,7 +537,7 @@ while count < 10:
 # 1 2 4 5 7 8 10
 ```
 
-**`break` vs `continue`:**
+### break vs continue
 
 ```python
 # break  — exit the loop entirely
@@ -519,7 +556,7 @@ for n in range(5):
 
 ---
 
-### `else` on Loops
+## else on Loops
 
 The `else` block runs only if the loop completed **without hitting a `break`**. If `break` was triggered, `else` is skipped.
 
@@ -531,8 +568,11 @@ for n in range(5):
 else:
     print("loop completed without break")
 # loop completed without break
+```
 
-# break fires — else skipped
+Break fires — else skipped:
+
+```python
 for n in range(5):
     if n == 3:
         break
@@ -541,10 +581,11 @@ else:
 # (nothing from else)
 ```
 
-**The real use case — search loops:**
+### The Real Use Case — Search Loops
+
+**Without else — need a flag variable:**
 
 ```python
-# Without else — need a flag variable
 numbers = [1, 3, 5, 7, 9]
 target = 6
 found = False
@@ -558,8 +599,11 @@ if found:
     print("found")
 else:
     print("not found")
+```
 
-# With for...else — cleaner, no flag needed
+**With for...else — cleaner, no flag needed:**
+
+```python
 for n in numbers:
     if n == target:
         print("found")
@@ -569,7 +613,7 @@ else:
 # not found
 ```
 
-**`while...else`:**
+### while...else
 
 ```python
 count = 0
@@ -586,7 +630,7 @@ The `for...else` / `while...else` pattern is rarely seen in other languages. It'
 
 ## Common Loop Patterns
 
-### Counter loop
+### Counter Loop
 
 ```python
 # Count how many items meet a condition
@@ -612,8 +656,11 @@ for n in numbers:
 
 print(total)    # 15
 # (better: sum(numbers) — but know the loop version)
+```
 
-# String accumulator — joining words
+String accumulator — joining words:
+
+```python
 words = ["Python", "is", "great"]
 sentence = ""
 
@@ -624,7 +671,7 @@ print(sentence.strip())    # Python is great
 # (better: " ".join(words) — but know the loop version)
 ```
 
-### Search-and-break
+### Search-and-Break
 
 ```python
 # Find first item matching a condition
@@ -643,10 +690,11 @@ else:
 # First available: banana
 ```
 
-### Nested loops — working with grids
+### Nested Loops — Working with Grids
+
+Multiplication table:
 
 ```python
-# Multiplication table
 for i in range(1, 4):
     for j in range(1, 4):
         print(f"{i}x{j}={i*j}", end="  ")
@@ -654,8 +702,11 @@ for i in range(1, 4):
 # 1x1=1  1x2=2  1x3=3
 # 2x1=2  2x2=4  2x3=6
 # 3x1=3  3x2=6  3x3=9
+```
 
-# Flatten a nested list
+Flatten a nested list:
+
+```python
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 flat = []
 
@@ -666,7 +717,7 @@ for row in matrix:
 print(flat)    # [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-### While with a retry pattern
+### While with a Retry Pattern
 
 ```python
 # Retry until success or max attempts
@@ -694,8 +745,9 @@ else:
 
 ## Putting It All Together
 
+A realistic example — processing a CSV-like dataset:
+
 ```python
-# A realistic example — processing a CSV-like dataset
 data = [
     ("Mohamed", 88, "Chennai"),
     ("Priya",   92, "Mumbai"),

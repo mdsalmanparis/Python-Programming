@@ -1,78 +1,102 @@
-Let's go. Full topic, nothing skipped.
+# 0.9 Built-in Functions You Must Know
 
----
+## print() and input() — I/O
 
-## 0.9 Built-in Functions You Must Know
-
----
-
-## `print()` and `input()` — I/O
-
-### `print()`
+### print()
 
 Outputs to the console. More powerful than most beginners realise.
 
+**Basic:**
 ```python
-# Basic
 print("hello")             # hello
 print(42)                  # 42
 print(3.14)                # 3.14
 print(True)                # True
 print(None)                # None
+```
 
-# Multiple arguments — separated by space by default
+**Multiple arguments — separated by space by default:**
+
+```python
 print("name:", "Mohamed")          # name: Mohamed
 print(1, 2, 3, 4, 5)              # 1 2 3 4 5
 print("a", "b", "c")              # a b c
+```
 
-# sep= — custom separator
+### sep= — Custom Separator
+
+```python
 print("a", "b", "c", sep=", ")    # a, b, c
 print("a", "b", "c", sep="")      # abc
 print("a", "b", "c", sep="\n")    # a
                                    # b
                                    # c
 print(2024, 6, 15, sep="-")       # 2024-6-15
+```
 
-# end= — what to print at the end (default is \n)
+### end= — What to Print at the End
+
+Default is `\n`:
+
+```python
 print("hello", end=" ")
 print("world")             # hello world  — on same line
 
 print("loading", end="")
 print("...", end="")
 print("done")              # loading...done
+```
 
-# Printing multiple items in a loop on one line
+Printing multiple items in a loop on one line:
+
+```python
 for i in range(5):
     print(i, end=" ")      # 0 1 2 3 4
 print()                    # newline at end
+```
 
-# file= — redirect output (used in real code to write to stderr)
+### file= — Redirect Output
+
+Used in real code to write to stderr:
+
+```python
 import sys
 print("error occurred", file=sys.stderr)
+```
 
-# flush= — force immediate output (useful in progress indicators)
+### flush= — Force Immediate Output
+
+Useful in progress indicators:
+
+```python
 print("processing...", end="", flush=True)
 ```
 
 ---
 
-### `input()`
+### input()
 
 Reads a line of text from the user. **Always returns a string.**
 
 ```python
 name = input("Enter your name: ")
 print(f"Hello, {name}!")
+```
 
-# input always returns str — convert for numbers
+**input always returns str — convert for numbers:**
+
+```python
 age_str = input("Enter your age: ")
 age = int(age_str)
 print(f"Next year you'll be {age + 1}")
 
 # One-liner conversion
 age = int(input("Enter your age: "))
+```
 
-# Safe input with error handling
+Safe input with error handling:
+
+```python
 while True:
     raw = input("Enter a number: ")
     if raw.isdigit():
@@ -81,7 +105,7 @@ while True:
     print("That's not a valid number, try again")
 ```
 
-**`input()` always returns `str` — this bites everyone at least once:**
+### input() Always Returns str — This Bites Everyone at Least Once
 
 ```python
 x = input("Enter a number: ")    # user types 5
@@ -96,7 +120,7 @@ print(x + y)                     # 8
 
 ---
 
-## `len()` — Length of Any Sequence
+## len() — Length of Any Sequence
 
 ```python
 print(len("hello"))              # 5
@@ -107,12 +131,18 @@ print(len({"a": 1, "b": 2}))    # 2  — counts keys
 print(len(range(100)))           # 100
 print(len(""))                   # 0
 print(len([]))                   # 0
+```
 
-# Common use — last index
+Common use — last index:
+
+```python
 s = "Python"
 print(s[len(s) - 1])    # n  — last char (use s[-1] in practice)
+```
 
-# Guard against empty
+Guard against empty:
+
+```python
 items = []
 if len(items) == 0:    # works
     print("empty")
@@ -123,7 +153,7 @@ if not items:          # Pythonic — same thing
 
 ---
 
-## `range()` — Integer Sequences
+## range() — Integer Sequences
 
 Already covered in 0.7 but consolidated here for completeness.
 
@@ -133,25 +163,31 @@ range(1, 6)       # 1, 2, 3, 4, 5
 range(0, 10, 2)   # 0, 2, 4, 6, 8
 range(10, 0, -1)  # 10, 9, 8, 7, 6, 5, 4, 3, 2, 1
 range(0, -10, -2) # 0, -2, -4, -6, -8
+```
 
-# range is lazy — doesn't store all values in memory
+**range is lazy — doesn't store all values in memory:**
+
+```python
 r = range(1_000_000)
 print(type(r))      # <class 'range'>
 print(r[0])         # 0      — supports indexing
 print(r[-1])        # 999999
 print(999 in r)     # True   — O(1) membership test
 print(len(r))       # 1000000
+```
 
-# Convert to list when you need a real list
-print(list(range(5)))     # [0, 1, 2, 3, 4]
-print(list(range(5, 0, -1)))  # [5, 4, 3, 2, 1]
+Convert to list when you need a real list:
+
+```python
+print(list(range(5)))          # [0, 1, 2, 3, 4]
+print(list(range(5, 0, -1)))   # [5, 4, 3, 2, 1]
 ```
 
 ---
 
-## `type()` and `isinstance()`
+## type() and isinstance()
 
-### `type()` — exact type check
+### type() — Exact Type Check
 
 ```python
 print(type(42))          # <class 'int'>
@@ -170,7 +206,7 @@ print(type(True) == bool)     # True
 print(type(True) == int)      # False  — exact match only
 ```
 
-### `isinstance()` — preferred in real code
+### isinstance() — Preferred in Real Code
 
 ```python
 print(isinstance(42, int))           # True
@@ -179,14 +215,17 @@ print(isinstance("hi", str))         # True
 print(isinstance(True, bool))        # True
 print(isinstance(True, int))         # True  — bool IS a subclass of int
 print(isinstance(42, (int, float)))  # True  — check against multiple types
+```
 
-# type() vs isinstance() — the key difference
+**type() vs isinstance() — the key difference:**
+
+```python
 x = True
 print(type(x) == int)        # False — exact match, bool is not int
 print(isinstance(x, int))    # True  — respects inheritance chain
 ```
 
-**Why `isinstance()` is preferred:**
+### Why isinstance() is Preferred
 
 ```python
 # In real code, you often want "is this number-like?"
@@ -263,19 +302,26 @@ dict(zip(["a","b"], [1, 2]))            # {'a': 1, 'b': 2}
 
 ---
 
-## `min()` and `max()`
+## min() and max()
+
+**On direct arguments:**
 
 ```python
-# On direct arguments
 print(min(3, 1, 4, 1, 5))      # 1
 print(max(3, 1, 4, 1, 5))      # 5
+```
 
-# On an iterable
+**On an iterable:**
+
+```python
 nums = [3, 1, 4, 1, 5, 9, 2]
 print(min(nums))    # 1
 print(max(nums))    # 9
+```
 
-# On strings — alphabetical / lexicographic order
+**On strings — alphabetical / lexicographic order:**
+
+```python
 print(min("apple", "banana", "cherry"))    # apple
 print(max("apple", "banana", "cherry"))    # cherry
 
@@ -284,7 +330,7 @@ print(min(words))    # apple
 print(max(words))    # cherry
 ```
 
-### `key=` parameter — custom comparison rule
+### key= Parameter — Custom Comparison Rule
 
 ```python
 words = ["banana", "fig", "cherry", "apple", "kiwi"]
@@ -298,8 +344,11 @@ print(max(words, key=len))    # banana — or cherry (tie goes to first found)
 # Alphabetically by last character
 print(min(words, key=lambda w: w[-1]))    # banana (ends with 'a')
 print(max(words, key=lambda w: w[-1]))    # kiwi   (ends with 'i'... actually 'y')
+```
 
-# With dicts — most common real-world use
+**With dicts — most common real-world use:**
+
+```python
 students = [
     {"name": "Mohamed", "score": 88},
     {"name": "Priya",   "score": 92},
@@ -311,13 +360,16 @@ bottom = min(students, key=lambda s: s["score"])
 
 print(top["name"])      # Priya
 print(bottom["name"])   # Arjun
+```
 
-# Case-insensitive string comparison
+**Case-insensitive string comparison:**
+
+```python
 names = ["banana", "Apple", "cherry"]
 print(min(names, key=str.lower))    # Apple  — treats as "apple" for comparison
 ```
 
-**`min()` / `max()` on empty iterable raises `ValueError`:**
+### min() / max() on Empty Iterable Raises ValueError
 
 ```python
 min([])    # ValueError: min() arg is an empty sequence
@@ -329,7 +381,7 @@ print(max([], default=-1))   # -1
 
 ---
 
-## `sum()`
+## sum()
 
 ```python
 print(sum([1, 2, 3, 4, 5]))         # 15
@@ -341,12 +393,15 @@ print(sum([]))                       # 0     — empty iterable returns 0
 # start= — initial value added to the sum
 print(sum([1, 2, 3], 100))          # 106   — starts from 100
 print(sum([1, 2, 3], start=100))    # 106
+```
 
-# sum() only works on numbers
+**sum() only works on numbers:**
+
+```python
 sum(["a", "b", "c"])    # TypeError — use "".join() for strings
 ```
 
-**Common patterns:**
+### Common Patterns
 
 ```python
 scores = [88, 92, 75, 84, 91]
@@ -367,7 +422,7 @@ print(total)    # 750
 
 ---
 
-## `abs()` — Absolute Value
+## abs() — Absolute Value
 
 ```python
 print(abs(5))       # 5
@@ -379,21 +434,28 @@ print(abs(0))       # 0
 print(abs(3 + 4j))  # 5.0  — sqrt(3² + 4²)
 ```
 
-**Common uses:**
+### Common Uses
+
+**Distance between two points:**
 
 ```python
-# Distance between two points
 def distance(a, b):
     return abs(a - b)
 
 print(distance(10, 3))    # 7
 print(distance(3, 10))    # 7  — same, order doesn't matter
+```
 
-# Comparing floats (from 0.2)
+**Comparing floats (from 0.2):**
+
+```python
 result = 0.1 + 0.2
 print(abs(result - 0.3) < 1e-9)    # True — "close enough"
+```
 
-# Finding closest value
+**Finding closest value:**
+
+```python
 target = 50
 values = [30, 45, 55, 80, 12]
 closest = min(values, key=lambda x: abs(x - target))
@@ -402,7 +464,7 @@ print(closest)    # 45
 
 ---
 
-## `round()`
+## round()
 
 ```python
 print(round(3.14159))        # 3      — rounds to nearest int
@@ -416,7 +478,7 @@ print(round(1234, -2))       # 1200   — negative ndigits rounds to left of dec
 print(round(1678, -2))       # 1700
 ```
 
-**Banker's rounding — Python rounds to even on .5:**
+### Banker's Rounding — Python Rounds to Even on .5
 
 ```python
 print(round(0.5))    # 0  — rounds to even (0 is even)
@@ -427,7 +489,7 @@ print(round(3.5))    # 4  — rounds to even (4 is even)
 
 This is the IEEE 754 standard. It's not a bug. For always-round-up behaviour use `math.ceil()` or `decimal.Decimal`.
 
-**`round()` for display vs for calculation:**
+### round() for Display vs for Calculation
 
 ```python
 price = 19.99
@@ -446,9 +508,9 @@ print(price * (1 + tax))  # 23.5882  — exact decimal arithmetic
 
 ---
 
-## `sorted()` and `reversed()`
+## sorted() and reversed()
 
-### `sorted()` — returns a new sorted list
+### sorted() — Returns a New Sorted List
 
 ```python
 nums = [3, 1, 4, 1, 5, 9, 2]
@@ -456,29 +518,41 @@ nums = [3, 1, 4, 1, 5, 9, 2]
 print(sorted(nums))                      # [1, 1, 2, 3, 4, 5, 9]
 print(sorted(nums, reverse=True))        # [9, 5, 4, 3, 2, 1, 1]
 print(nums)                              # [3, 1, 4, 1, 5, 9, 2]  — unchanged
+```
 
-# Works on any iterable — not just lists
+Works on any iterable — not just lists:
+
+```python
 print(sorted("python"))                  # ['h', 'n', 'o', 'p', 't', 'y']
 print(sorted((3, 1, 2)))                 # [1, 2, 3]  — input tuple, output list
 print(sorted({3, 1, 2}))                 # [1, 2, 3]
+```
 
-# key= parameter
+**key= parameter:**
+
+```python
 words = ["banana", "fig", "cherry", "apple"]
 print(sorted(words, key=len))            # ['fig', 'apple', 'banana', 'cherry']
 print(sorted(words, key=str.lower))      # ['apple', 'banana', 'cherry', 'fig']
+```
 
-# Sort dicts by value
+**Sort dicts by value:**
+
+```python
 scores = {"Mohamed": 88, "Priya": 92, "Arjun": 74}
 print(sorted(scores, key=scores.get))              # ['Arjun', 'Mohamed', 'Priya']
 print(sorted(scores, key=scores.get, reverse=True))# ['Priya', 'Mohamed', 'Arjun']
+```
 
-# Stable sort — equal elements keep original order
+**Stable sort — equal elements keep original order:**
+
+```python
 data = [("b", 2), ("a", 2), ("c", 1)]
 print(sorted(data, key=lambda x: x[1]))
 # [('c', 1), ('b', 2), ('a', 2)]  — b before a preserved
 ```
 
-### `reversed()` — returns an iterator
+### reversed() — Returns an Iterator
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -486,18 +560,24 @@ nums = [1, 2, 3, 4, 5]
 rev = reversed(nums)
 print(rev)              # <list_reverseiterator object>
 print(list(rev))        # [5, 4, 3, 2, 1]
+```
 
-# Use directly in a for loop — no need to convert
+Use directly in a for loop — no need to convert:
+
+```python
 for n in reversed(nums):
     print(n, end=" ")   # 5 4 3 2 1
+```
 
-# Works on sequences (list, tuple, str, range)
+Works on sequences (list, tuple, str, range):
+
+```python
 print(list(reversed("hello")))       # ['o', 'l', 'l', 'e', 'h']
 print(list(reversed((1, 2, 3))))     # [3, 2, 1]
 print(list(reversed(range(5))))      # [4, 3, 2, 1, 0]
 ```
 
-**`reversed()` vs `[::-1]`:**
+### reversed() vs [::-1]
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -511,11 +591,11 @@ nums[::-1]             # creates a new list immediately
 
 ---
 
-## `enumerate()` and `zip()`
+## enumerate() and zip()
 
 Already covered deeply in 0.7 — quick summary here.
 
-### `enumerate()`
+### enumerate()
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -530,7 +610,7 @@ for i, fruit in enumerate(fruits, start=1):
 # 3. cherry
 ```
 
-### `zip()`
+### zip()
 
 ```python
 names  = ["Alice", "Bob", "Charlie"]
@@ -541,8 +621,11 @@ list(zip(names, scores))    # [('Alice', 88), ('Bob', 92), ('Charlie', 75)]
 
 for name, score, city in zip(names, scores, cities):
     print(f"{name} | {score} | {city}")
+```
 
-# Unzip — transpose rows and columns
+**Unzip — transpose rows and columns:**
+
+```python
 pairs = [(1, 'a'), (2, 'b'), (3, 'c')]
 numbers, letters = zip(*pairs)
 print(numbers)    # (1, 2, 3)
@@ -551,7 +634,7 @@ print(letters)    # ('a', 'b', 'c')
 
 ---
 
-## `map()` — Apply Function to Every Element
+## map() — Apply Function to Every Element
 
 Returns a lazy iterator. Apply a function to each item in an iterable.
 
@@ -562,28 +645,37 @@ nums = [1, 2, 3, 4, 5]
 doubled = map(lambda x: x * 2, nums)
 print(doubled)          # <map object>  — lazy
 print(list(doubled))    # [2, 4, 6, 8, 10]
+```
 
-# With a named function
+With a named function:
+
+```python
 def square(n):
     return n * n
 
 print(list(map(square, nums)))    # [1, 4, 9, 16, 25]
+```
 
-# With built-in functions
+With built-in functions:
+
+```python
 strings = ["1", "2", "3", "4"]
 numbers = list(map(int, strings))   # convert each string to int
 print(numbers)    # [1, 2, 3, 4]
 
 names = ["alice", "bob", "charlie"]
 print(list(map(str.title, names)))  # ['Alice', 'Bob', 'Charlie']
+```
 
-# map with two iterables
+**map with two iterables:**
+
+```python
 a = [1, 2, 3]
 b = [10, 20, 30]
 print(list(map(lambda x, y: x + y, a, b)))    # [11, 22, 33]
 ```
 
-**`map()` vs list comprehension — which to use:**
+### map() vs List Comprehension — Which to Use
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -593,16 +685,18 @@ list(map(lambda x: x * 2, nums))
 
 # List comprehension — more Pythonic and readable
 [x * 2 for x in nums]
+```
 
-# Prefer list comprehensions for most cases
-# map() shines when you already have a named function
+Prefer list comprehensions for most cases. `map()` shines when you already have a named function:
+
+```python
 list(map(int, ["1", "2", "3"]))         # clean
 [int(x) for x in ["1", "2", "3"]]      # also fine
 ```
 
 ---
 
-## `filter()` — Keep Elements Where Function Returns True
+## filter() — Keep Elements Where Function Returns True
 
 Returns a lazy iterator. Keeps only items where the function returns `True`.
 
@@ -612,26 +706,35 @@ nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 # filter(function, iterable)
 evens = filter(lambda x: x % 2 == 0, nums)
 print(list(evens))    # [2, 4, 6, 8, 10]
+```
 
-# With a named function
+With a named function:
+
+```python
 def is_positive(n):
     return n > 0
 
 values = [-3, -1, 0, 2, 5, -2, 8]
 print(list(filter(is_positive, values)))    # [2, 5, 8]
+```
 
-# Filter strings
+Filter strings:
+
+```python
 words = ["hello", "", "world", "", "python", ""]
 non_empty = list(filter(None, words))       # None as function = filter falsy values
 print(non_empty)    # ['hello', 'world', 'python']
+```
 
-# filter(None, iterable) — removes all falsy values
+**filter(None, iterable) — removes all falsy values:**
+
+```python
 mixed = [0, 1, "", "hello", None, [], [1, 2], False, True]
 print(list(filter(None, mixed)))
 # [1, 'hello', [1, 2], True]
 ```
 
-**`filter()` vs list comprehension:**
+### filter() vs List Comprehension
 
 ```python
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -641,17 +744,19 @@ list(filter(lambda x: x % 2 == 0, nums))
 
 # List comprehension — more readable
 [x for x in nums if x % 2 == 0]
+```
 
-# Prefer comprehensions — filter() with lambda is almost always less readable
-# filter() is useful with existing named functions
+Prefer comprehensions — `filter()` with lambda is almost always less readable. `filter()` is useful with existing named functions:
+
+```python
 list(filter(str.isupper, ["Hello", "WORLD", "python"]))    # ['WORLD']
 ```
 
 ---
 
-## `any()` and `all()` — Boolean Checks
+## any() and all() — Boolean Checks
 
-### `any()` — True if at least one element is truthy
+### any() — True if at Least One Element is Truthy
 
 ```python
 print(any([False, False, True, False]))    # True
@@ -666,7 +771,7 @@ names = ["alice", "Bob", "charlie"]
 print(any(n[0].isupper() for n in names))    # True  — at least one starts uppercase
 ```
 
-### `all()` — True if every element is truthy
+### all() — True if Every Element is Truthy
 
 ```python
 print(all([True, True, True]))             # True
@@ -681,10 +786,11 @@ passwords = ["abc123", "secure!", "pass"]
 print(all(len(p) >= 8 for p in passwords))    # False  — "pass" is too short
 ```
 
-### Short-circuit behaviour
+### Short-Circuit Behaviour
+
+**any() stops at first True:**
 
 ```python
-# any() stops at first True
 def check(x):
     print(f"checking {x}")
     return x > 3
@@ -694,8 +800,11 @@ print(any(check(x) for x in [1, 2, 5, 6]))
 # checking 2
 # checking 5   ← stops here, 5 > 3 is True
 # True
+```
 
-# all() stops at first False
+**all() stops at first False:**
+
+```python
 print(all(check(x) for x in [5, 6, 2, 8]))
 # checking 5
 # checking 6
@@ -703,7 +812,7 @@ print(all(check(x) for x in [5, 6, 2, 8]))
 # False
 ```
 
-**`any()` / `all()` with generators — memory efficient:**
+### any() / all() with Generators — Memory Efficient
 
 ```python
 # No intermediate list created
@@ -713,12 +822,13 @@ result = all(x >= 0 for x in range(1_000_000))     # checks all (all are >= 0)
 
 ---
 
-## `open()` — File I/O
+## open() — File I/O
 
 Detailed coverage in Phase 2 (topic 2.2 `pathlib`, `os`, `shutil`). The essentials here:
 
+**Always use with statement — auto-closes the file:**
+
 ```python
-# Always use with statement — auto-closes the file
 with open("file.txt", "r") as f:
     content = f.read()
 
@@ -727,15 +837,18 @@ with open("file.txt", "w") as f:
 
 with open("file.txt", "a") as f:
     f.append("new line\n")    # append mode
+```
 
-# Modes
-# "r"  — read (default)
-# "w"  — write (creates or overwrites)
-# "a"  — append
-# "rb" — read binary
-# "wb" — write binary
+**Modes:**
+- `"r"` — read (default)
+- `"w"` — write (creates or overwrites)
+- `"a"` — append
+- `"rb"` — read binary
+- `"wb"` — write binary
 
-# Always specify encoding for text files
+**Always specify encoding for text files:**
+
+```python
 with open("file.txt", "r", encoding="utf-8") as f:
     content = f.read()
 ```
@@ -744,9 +857,9 @@ Full coverage — all read/write methods, `pathlib`, directory operations — co
 
 ---
 
-## `help()` and `dir()`
+## help() and dir()
 
-### `help()` — inline documentation
+### help() — Inline Documentation
 
 ```python
 help(print)       # full documentation for print
@@ -757,25 +870,31 @@ help([])          # same as help(list)
 help(str.split)   # documentation for a specific method
 ```
 
-### `dir()` — list all attributes and methods of an object
+### dir() — List All Attributes and Methods of an Object
 
 ```python
 print(dir("hello"))     # all string methods and attributes
 print(dir([]))          # all list methods
 print(dir({}))          # all dict methods
+```
 
-# Filter out dunder methods to see only public ones
+Filter out dunder methods to see only public ones:
+
+```python
 public = [x for x in dir("hello") if not x.startswith("_")]
 print(public)
 # ['capitalize', 'casefold', 'center', 'count', 'encode', 'endswith',
 #  'expandtabs', 'find', 'format', ...]
+```
 
-# On a module
+**On a module:**
+
+```python
 import math
 print(dir(math))    # all functions and constants in math module
 ```
 
-**`help()` and `dir()` together — the discovery workflow:**
+### help() and dir() Together — The Discovery Workflow
 
 ```python
 # You know something exists but don't remember the exact method
@@ -792,8 +911,9 @@ help(str.center)                 # how does .center() work?
 
 ## Putting It All Together
 
+A realistic example combining many built-ins:
+
 ```python
-# Realistic example combining many built-ins
 raw_data = [
     "  Mohamed, 88, Chennai  ",
     "  Priya, 92, Mumbai     ",

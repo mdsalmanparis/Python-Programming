@@ -1,12 +1,6 @@
-Let's go. Full topic, nothing skipped.
+# 0.6 Conditional Statements
 
----
-
-## 0.6 Conditional Statements
-
----
-
-## `if` Statement
+## if Statement
 
 The most fundamental control flow tool. Run a block of code only when a condition is `True`.
 
@@ -26,7 +20,7 @@ if age >= 18:
 print("Program continues")      # this always runs
 ```
 
-**The colon and indentation are mandatory:**
+### The Colon and Indentation are Mandatory
 
 ```python
 # SyntaxError — missing colon
@@ -46,7 +40,7 @@ Python uses indentation to define blocks — not curly braces like most language
 
 ---
 
-## `else` Clause
+## else Clause
 
 Runs when the `if` condition is `False`. Only one `else` per `if`, always at the end.
 
@@ -58,8 +52,11 @@ if age >= 18:
 else:
     print("minor")
 # minor
+```
 
-# Both branches are mutually exclusive — exactly one will always run
+Both branches are mutually exclusive — exactly one will always run:
+
+```python
 score = 75
 
 if score >= 50:
@@ -71,7 +68,7 @@ else:
 
 ---
 
-## `elif` Clause
+## elif Clause
 
 Multiple conditions checked in order. The first one that is `True` wins — the rest are skipped entirely.
 
@@ -91,12 +88,12 @@ else:
 # B  — score >= 80 is the first True condition
 ```
 
-**"First True wins" — order matters:**
+### "First True Wins" — Order Matters
 
+**Wrong order — gives wrong result:**
 ```python
 score = 95
 
-# WRONG order — gives wrong result
 if score >= 60:
     print("D")       # prints D even though score is 95
 elif score >= 70:
@@ -105,8 +102,10 @@ elif score >= 80:
     print("B")       # never reached
 elif score >= 90:
     print("A")       # never reached
+```
 
-# CORRECT order — most restrictive first
+**Correct order — most restrictive first:**
+```python
 if score >= 90:
     print("A")       # prints A
 elif score >= 80:
@@ -117,7 +116,7 @@ elif score >= 60:
     print("D")
 ```
 
-**`else` is optional:**
+### else is Optional
 
 ```python
 role = "admin"
@@ -131,7 +130,7 @@ elif role == "viewer":
 # no else — if none match, nothing happens
 ```
 
-**Each condition is only checked if all previous ones were `False`:**
+### Each Condition is Only Checked if All Previous Ones Were False
 
 ```python
 x = 10
@@ -151,7 +150,7 @@ elif x > 1:          # never evaluated
 
 Every Python value has a boolean truth value. You don't always need `== True` or `== False`.
 
-### Falsy values — these ALL evaluate to `False` in a condition
+### Falsy Values — These ALL Evaluate to False in a Condition
 
 ```python
 if False:    print("False")      # skipped
@@ -166,7 +165,7 @@ if None:     print("None")       # skipped
 print("none of those ran")
 ```
 
-### Truthy values — everything else
+### Truthy Values — Everything Else
 
 ```python
 if 1:           print("1")           # runs
@@ -181,14 +180,15 @@ if {"a": 1}:    print("dict")        # runs
 if (0,):        print("tuple")       # runs — single element tuple
 ```
 
-### Using truthiness directly — the Pythonic way
+### Using Truthiness Directly — The Pythonic Way
+
+Un-Pythonic — explicit comparison:
 
 ```python
 name = "Mohamed"
 items = [1, 2, 3]
 user = None
 
-# Un-Pythonic — explicit comparison
 if name != "":
     print("has name")
 
@@ -197,21 +197,26 @@ if len(items) > 0:
 
 if user is not None:
     print("user exists")
+```
 
-# Pythonic — use truthiness directly
+Pythonic — use truthiness directly:
+
+```python
 if name:
     print("has name")
 
 if items:
     print("has items")
+```
 
-# Exception — for None specifically, use 'is not None', not just truthiness
-# because 0, "", [] also evaluate to False but are not None
+**Exception — for None specifically, use `is not None`, not just truthiness** because `0`, `""`, `[]` also evaluate to `False` but are not `None`:
+
+```python
 if user is not None:      # correct — distinguishes None from 0 or ""
     print("user exists")
 ```
 
-**The `None` check distinction matters in real code:**
+### The None Check Distinction Matters in Real Code
 
 ```python
 def get_count():
@@ -267,7 +272,7 @@ if day in {"Saturday", "Sunday"}:    # set for O(1) lookup
 
 ---
 
-## Ternary — One-Line `if`
+## Ternary — One-Line if
 
 Assign a value based on a condition in a single line.
 
@@ -290,7 +295,7 @@ name = "Mohamed"
 print(f"Hello {'sir' if name else 'stranger'}")   # Hello sir
 ```
 
-**Ternary can be chained — but use sparingly:**
+### Ternary Can Be Chained — But Use Sparingly
 
 ```python
 score = 85
@@ -300,22 +305,24 @@ print(grade)    # B
 
 This is technically valid but becomes hard to read quickly. If you have more than two branches, use `if/elif/else`.
 
-**When ternary is appropriate — simple, readable assignments:**
+### When Ternary is Appropriate — Simple, Readable Assignments
 
+**Good use — short and clear:**
 ```python
-# Good use — short and clear
 is_even = True if n % 2 == 0 else False
 # Even better — just use the expression directly
 is_even = n % 2 == 0
+```
 
-# Bad use — too complex for one line
+**Bad use — too complex for one line:**
+```python
 result = process_a(x) if condition_a(x) and some_flag else process_b(x) if condition_b else default_value
 # Refactor this into if/elif/else — readability matters
 ```
 
 ---
 
-## Nested `if` — Use Sparingly
+## Nested if — Use Sparingly
 
 An `if` inside another `if`.
 
@@ -338,25 +345,29 @@ else:
 
 This works but three levels deep is already hard to follow. The deeper you nest, the harder it is to read and test.
 
-### Refactor with `and` — flatten conditions
+### Refactor with and — Flatten Conditions
+
+Instead of nested ifs:
 
 ```python
-# Instead of nested ifs
 if age >= 18:
     if has_ticket:
         print("general admission")
+```
 
-# Combine with and
+Combine with `and`:
+
+```python
 if age >= 18 and has_ticket:
     print("general admission")
 ```
 
-### Refactor with early return — the guard clause pattern
+### Refactor with Early Return — The Guard Clause Pattern
 
 This is the professional way to handle nested conditions. Check failure cases first and return early.
 
+**Deep nesting — hard to follow:**
 ```python
-# Deep nesting — hard to follow
 def process_order(user, order):
     if user is not None:
         if user.is_active:
@@ -371,8 +382,10 @@ def process_order(user, order):
             print("inactive user")
     else:
         print("no user")
+```
 
-# Guard clause pattern — flat and clear
+**Guard clause pattern — flat and clear:**
+```python
 def process_order(user, order):
     if user is None:
         print("no user")
@@ -397,11 +410,11 @@ The guard clause pattern is used everywhere in production Python. Check precondi
 
 ---
 
-## `match / case` — Pattern Matching (Python 3.10+)
+## match / case — Pattern Matching (Python 3.10+)
 
 A cleaner replacement for long `elif` chains, especially when matching against specific values or structures.
 
-### Basic value matching
+### Basic Value Matching
 
 ```python
 status_code = 404
@@ -424,7 +437,7 @@ match status_code:
 
 `case _:` is the wildcard — matches anything not matched above.
 
-### Matching strings
+### Matching Strings
 
 ```python
 command = "quit"
@@ -441,7 +454,7 @@ match command:
 # Goodbye
 ```
 
-### Matching with a guard condition
+### Matching with a Guard Condition
 
 ```python
 score = 85
@@ -460,7 +473,7 @@ match score:
 
 The `s` captures the matched value, `if s >= 90` is the guard.
 
-### Matching sequences (lists and tuples)
+### Matching Sequences (Lists and Tuples)
 
 ```python
 point = (0, 5)
@@ -479,7 +492,7 @@ match point:
 # on Y axis at y=5
 ```
 
-### Matching dictionaries
+### Matching Dictionaries
 
 ```python
 event = {"type": "click", "button": "left", "x": 100, "y": 200}
@@ -498,7 +511,7 @@ match event:
 
 Dictionary patterns only need to match the specified keys — extra keys in the dict are ignored.
 
-### Matching with class patterns
+### Matching with Class Patterns
 
 ```python
 class Point:
@@ -520,26 +533,28 @@ match p:
 # Y axis, y=5
 ```
 
-### `if/elif` vs `match/case` — when to use which
+### if/elif vs match/case — When to Use Which
+
+**if/elif — use for:**
+- range checks (score >= 90)
+- complex boolean conditions
+- Python < 3.10 compatibility
 
 ```python
-# if/elif — use for:
-# - range checks (score >= 90)
-# - complex boolean conditions
-# - Python < 3.10 compatibility
-
 if score >= 90:
     grade = "A"
 elif score >= 80:
     grade = "B"
 else:
     grade = "F"
+```
 
-# match/case — use for:
-# - matching exact values or structures
-# - HTTP status codes, command strings, event types
-# - destructuring tuples, lists, dicts
+**match/case — use for:**
+- matching exact values or structures
+- HTTP status codes, command strings, event types
+- destructuring tuples, lists, dicts
 
+```python
 match status:
     case 200: ...
     case 404: ...

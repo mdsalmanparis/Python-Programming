@@ -1,10 +1,4 @@
-Let's go. Full topic, nothing skipped.
-
----
-
-## 0.12 Modules & Imports
-
----
+# 0.12 Modules & Imports
 
 ## What Is a Module
 
@@ -21,7 +15,7 @@ Modules let you split code across files instead of writing everything in one gia
 
 ---
 
-## `import module` — The Basic Form
+## import module — The Basic Form
 
 Imports the entire module. Access everything through the module name.
 
@@ -37,7 +31,7 @@ print(math.ceil(3.2))     # 4
 # math.sqrt, math.pi, math.floor — always prefixed
 ```
 
-**Why the prefix matters — no name collisions:**
+### Why the Prefix Matters — No Name Collisions
 
 ```python
 import math
@@ -49,7 +43,7 @@ print(math.floor(3.7))          # 3
 print(statistics.mean([1,2,3])) # 2
 ```
 
-**Multiple imports:**
+### Multiple Imports
 
 ```python
 import math
@@ -66,7 +60,7 @@ import sys
 
 ---
 
-## `from module import name` — Import Specific Names
+## from module import name — Import Specific Names
 
 Imports only what you need. Use the name directly without the prefix.
 
@@ -85,7 +79,7 @@ print(floor(3.9))  # 3
 print(ceil(3.1))   # 4
 ```
 
-**When this is the right choice:**
+### When This Is the Right Choice
 
 ```python
 # Deeply nested module — prefix would be verbose
@@ -99,7 +93,7 @@ os.path.join("home", "user")         # verbose
 join("home", "user")                 # clean
 ```
 
-**When this causes problems — name shadowing:**
+### When This Causes Problems — Name Shadowing
 
 ```python
 from math import floor
@@ -115,7 +109,7 @@ With `import math`, you'd always call `math.floor()` — no ambiguity. `from mod
 
 ---
 
-## `from module import *` — Import Everything
+## from module import * — Import Everything
 
 Imports all public names from the module into your current namespace.
 
@@ -128,7 +122,7 @@ print(floor(3.7))  # 3
 print(e)           # 2.718...
 ```
 
-**Why to avoid it in real code:**
+### Why to Avoid It in Real Code
 
 ```python
 from math import *
@@ -143,7 +137,7 @@ mean([1, 2, 3])      # ambiguous
 # Your function silently gets overwritten — hard to debug
 ```
 
-**The only acceptable use — interactive Python shell for quick exploration:**
+### The Only Acceptable Use — Interactive Python Shell for Quick Exploration
 
 ```python
 # In REPL only — acceptable
@@ -156,7 +150,7 @@ Never in `.py` files that other people will read or maintain.
 
 ---
 
-## `import module as alias` — Renaming on Import
+## import module as alias — Renaming on Import
 
 Give the module a shorter or more convenient name.
 
@@ -167,7 +161,9 @@ print(m.sqrt(16))    # 4.0
 print(m.pi)          # 3.141592653589793
 ```
 
-**Standard aliases everyone uses — these are conventions, not rules, but follow them:**
+### Standard Aliases Everyone Uses
+
+These are conventions, not rules, but follow them:
 
 ```python
 import numpy as np           # universal — everyone uses np
@@ -180,7 +176,7 @@ import tensorflow as tf      # standard
 import numpy as numpster     # don't do this
 ```
 
-**`from module import name as alias` — rename a specific import:**
+### from module import name as alias — Rename a Specific Import
 
 ```python
 from math import sqrt as square_root
@@ -206,7 +202,7 @@ project/
     stringutils.py
 ```
 
-**`mathutils.py`:**
+**mathutils.py:**
 
 ```python
 # mathutils.py
@@ -230,7 +226,7 @@ def factorial(n):
     return n * factorial(n - 1)
 ```
 
-**`main.py` — importing your own module:**
+**main.py — importing your own module:**
 
 ```python
 import mathutils
@@ -246,7 +242,7 @@ print(circle_area(5))    # 78.53975
 print(is_prime(17))      # True
 ```
 
-**Python finds modules by looking in `sys.path`:**
+### Python Finds Modules by Looking in sys.path
 
 ```python
 import sys
@@ -257,7 +253,7 @@ print(sys.path)
 
 ---
 
-## `__name__ == "__main__"` — The Most Important Module Pattern
+## __name__ == "__main__" — The Most Important Module Pattern
 
 When Python runs a file, it sets a special variable `__name__`:
 - If the file is **run directly**: `__name__ = "__main__"`
@@ -280,7 +276,7 @@ __name__ is: __main__
 __name__ is: mathutils
 ```
 
-**The problem this solves — test code running on import:**
+### The Problem This Solves — Test Code Running on Import
 
 ```python
 # mathutils.py WITHOUT the guard
@@ -299,7 +295,7 @@ import mathutils    # this runs ALL top-level code in mathutils.py
                     # including your print statements — unwanted output!
 ```
 
-**The fix — guard all runnable code:**
+### The Fix — Guard All Runnable Code
 
 ```python
 # mathutils.py WITH the guard
@@ -323,7 +319,7 @@ if __name__ == "__main__":
     print(is_prime(18))          # False
 ```
 
-**Every Python file you write should follow this structure:**
+### Every Python File You Write Should Follow This Structure
 
 ```python
 # mymodule.py
@@ -349,7 +345,7 @@ This is not optional style — it's the standard that every Python project follo
 
 ## Standard Library Modules
 
-### `math` — Mathematical Functions
+### math — Mathematical Functions
 
 ```python
 import math
@@ -396,7 +392,7 @@ print(math.pow(2, 10))  # 1024.0  — always float
 
 ---
 
-### `random` — Random Number Generation
+### random — Random Number Generation
 
 ```python
 import random
@@ -440,7 +436,7 @@ print(random.randint(1, 100))    # 82 again — same sequence
 
 ---
 
-### `os` — Operating System Interface
+### os — Operating System Interface
 
 ```python
 import os
@@ -492,7 +488,7 @@ for dirpath, dirnames, filenames in os.walk("."):
 
 ---
 
-### `sys` — System-Specific Parameters
+### sys — System-Specific Parameters
 
 ```python
 import sys
@@ -538,7 +534,7 @@ print(sys.getsizeof([1, 2, 3]))    # bytes used by the object
 
 ---
 
-### `datetime` — Dates and Times
+### datetime — Dates and Times
 
 ```python
 from datetime import datetime, date, time, timedelta
@@ -593,7 +589,7 @@ print(diff.days)             # days until Jan 1 2025
 
 ---
 
-### `time` — Time Functions
+### time — Time Functions
 
 ```python
 import time
@@ -628,7 +624,7 @@ print(time.ctime(timestamp))         # 'Fri Nov 15 14:30:45 2024'
 
 ---
 
-## `pip install` — Third-Party Packages
+## pip install — Third-Party Packages
 
 Python's built-in standard library is powerful, but the real ecosystem is on PyPI (Python Package Index) — hundreds of thousands of packages.
 
@@ -661,7 +657,7 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
-**`requirements.txt` — the standard way to share dependencies:**
+### requirements.txt — The Standard Way to Share Dependencies
 
 ```
 # requirements.txt
@@ -671,7 +667,7 @@ sqlalchemy==2.0.23
 pydantic==2.5.0
 ```
 
-**Essential packages to know about now:**
+### Essential Packages to Know About Now
 
 ```python
 import requests      # pip install requests  — HTTP requests
@@ -687,7 +683,7 @@ print(response.status_code)    # 200
 print(response.json())         # response as dict
 ```
 
-**Virtual environments — always use one per project:**
+### Virtual Environments — Always Use One Per Project
 
 ```bash
 # Create

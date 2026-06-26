@@ -1,10 +1,4 @@
-Let's go. Full topic, nothing skipped.
-
----
-
-## 0.10 File I/O Basics
-
----
+# 0.10 File I/O Basics
 
 ## What Is File I/O
 
@@ -20,7 +14,7 @@ user = {"name":...} ←→   user.json
 
 ---
 
-## `open()` — The Gateway to Files
+## open() — The Gateway to Files
 
 `open()` returns a **file object**. You read or write through that object.
 
@@ -30,7 +24,9 @@ content = f.read()
 f.close()                    # must close manually — risky
 ```
 
-**The problem — if an error happens before `f.close()`, the file never closes:**
+### The Problem — If an Error Happens Before f.close()
+
+The file never closes:
 
 ```python
 f = open("file.txt", "r")
@@ -41,7 +37,7 @@ f.close()                    # this never runs — file stays open, resource lea
 
 ---
 
-## `with` Statement — Always Use This
+## with Statement — Always Use This
 
 The `with` statement guarantees the file is closed — no matter what happens, even if an exception is raised inside the block.
 
@@ -51,7 +47,9 @@ with open("file.txt", "r") as f:
 # file is automatically closed here — guaranteed
 ```
 
-**Under the hood — `with` calls `f.__enter__()` on entry and `f.__exit__()` on exit. `__exit__` calls `f.close()` even if an exception occurred.**
+### Under the Hood — with Calls f.__enter__() on Entry and f.__exit__() on Exit
+
+`__exit__` calls `f.close()` even if an exception occurred.
 
 ```python
 # This is what with does internally:
@@ -64,7 +62,7 @@ finally:
 # The with statement is just cleaner syntax for this pattern
 ```
 
-**Multiple files in one `with` statement:**
+### Multiple Files in One with Statement
 
 ```python
 with open("input.txt", "r") as fin, open("output.txt", "w") as fout:
@@ -85,7 +83,7 @@ open("file.txt", "x")    # exclusive create — fails if file already exists
 open("file.txt", "r+")   # read AND write — file must exist
 ```
 
-**Binary modes — for images, PDFs, audio, any non-text file:**
+### Binary Modes — For Images, PDFs, Audio, Any Non-Text File
 
 ```python
 open("image.png", "rb")   # read binary
@@ -93,18 +91,16 @@ open("image.png", "wb")   # write binary
 open("image.png", "ab")   # append binary
 ```
 
-**Text vs binary — the key difference:**
+### Text vs Binary — The Key Difference
 
-```python
-# Text mode (default) — Python translates \n for the platform
-# Windows: \r\n on disk, Python gives you \n in code
-# Linux/Mac: \n on disk, Python gives you \n in code
+**Text mode (default) — Python translates \n for the platform:**
+- Windows: `\r\n` on disk, Python gives you `\n` in code
+- Linux/Mac: `\n` on disk, Python gives you `\n` in code
 
-# Binary mode — no translation, raw bytes
-# Use for: images, audio, video, PDFs, Excel files, any non-text
-```
+**Binary mode — no translation, raw bytes:**
+- Use for: images, audio, video, PDFs, Excel files, any non-text
 
-**The `"w"` overwrite trap:**
+### The "w" Overwrite Trap
 
 ```python
 # file.txt contains: "important data"
@@ -120,7 +116,7 @@ with open("file.txt", "w") as f:
 
 ## Reading — Four Ways
 
-### `f.read()` — Entire File as One String
+### f.read() — Entire File as One String
 
 ```python
 with open("notes.txt", "r", encoding="utf-8") as f:
@@ -146,7 +142,7 @@ with open("notes.txt", "r", encoding="utf-8") as f:
 
 ---
 
-### `f.readlines()` — List of Lines
+### f.readlines() — List of Lines
 
 ```python
 with open("students.txt", "r", encoding="utf-8") as f:
@@ -176,7 +172,7 @@ print(clean_lines)
 
 ---
 
-### `for line in f:` — Iterate Lazily (Best for Large Files)
+### for line in f: — Iterate Lazily (Best for Large Files)
 
 ```python
 with open("large_log.txt", "r", encoding="utf-8") as f:
@@ -212,7 +208,7 @@ with open("data.csv", "r", encoding="utf-8") as f:
 
 ---
 
-### `f.readline()` — One Line at a Time
+### f.readline() — One Line at a Time
 
 ```python
 with open("students.txt", "r", encoding="utf-8") as f:
@@ -224,7 +220,7 @@ with open("students.txt", "r", encoding="utf-8") as f:
 print(first.strip())    # Mohamed, 88
 ```
 
-**End-of-file detection — empty string, not `\n`:**
+### End-of-File Detection — Empty String, Not \n
 
 ```python
 with open("file.txt", "r", encoding="utf-8") as f:
@@ -272,7 +268,7 @@ line = f.readline()
 
 ## Writing
 
-### `f.write()` — Write a String
+### f.write() — Write a String
 
 ```python
 with open("output.txt", "w", encoding="utf-8") as f:
@@ -280,7 +276,7 @@ with open("output.txt", "w", encoding="utf-8") as f:
 # output.txt contains: Hello, World!
 ```
 
-**No automatic newline — you must add `\n` yourself:**
+### No Automatic Newline — You Must Add \n Yourself
 
 ```python
 with open("output.txt", "w", encoding="utf-8") as f:
@@ -300,7 +296,7 @@ with open("output.txt", "w", encoding="utf-8") as f:
 # line three
 ```
 
-**`f.write()` returns the number of characters written:**
+### f.write() Returns the Number of Characters Written
 
 ```python
 with open("output.txt", "w", encoding="utf-8") as f:
@@ -310,7 +306,7 @@ with open("output.txt", "w", encoding="utf-8") as f:
 
 ---
 
-### `f.writelines()` — Write a List of Strings
+## f.writelines() — Write a List of Strings
 
 ```python
 lines = ["line one\n", "line two\n", "line three\n"]
@@ -323,7 +319,7 @@ with open("output.txt", "w", encoding="utf-8") as f:
 
 ---
 
-### Append Mode — Add to Existing File
+## Append Mode — Add to Existing File
 
 ```python
 # First run — creates file
@@ -341,7 +337,7 @@ with open("log.txt", "a", encoding="utf-8") as f:
 
 ---
 
-## `encoding="utf-8"` — Always Specify
+## encoding="utf-8" — Always Specify
 
 ```python
 # BAD — encoding depends on the platform
@@ -356,7 +352,7 @@ with open("file.txt", "r", encoding="utf-8") as f:
     content = f.read()
 ```
 
-**UTF-8 handles all characters — Tamil, Arabic, emoji, anything:**
+### UTF-8 Handles All Characters — Tamil, Arabic, Emoji, Anything
 
 ```python
 with open("names.txt", "w", encoding="utf-8") as f:
@@ -388,8 +384,11 @@ if os.path.isfile("file.txt"):
 
 if os.path.isdir("myfolder"):
     print("it's a directory")
+```
 
-# Safe read — check before opening
+### Safe Read — Check Before Opening
+
+```python
 filename = "data.txt"
 if os.path.exists(filename):
     with open(filename, "r", encoding="utf-8") as f:
@@ -405,17 +404,15 @@ except FileNotFoundError:
     print(f"{filename} not found")
 ```
 
-**`try/except` vs `os.path.exists()` — which to use:**
+### try/except vs os.path.exists() — Which to Use
 
-```python
-# os.path.exists() — check first
-# Risk: file could be deleted BETWEEN the check and the open (race condition)
-# Fine for scripts and simple programs
+**os.path.exists() — check first:**
+- Risk: file could be deleted BETWEEN the check and the open (race condition)
+- Fine for scripts and simple programs
 
-# try/except — ask for forgiveness, not permission
-# No race condition — handles the error at the point it happens
-# Preferred in professional code
-```
+**try/except — ask for forgiveness, not permission:**
+- No race condition — handles the error at the point it happens
+- Preferred in professional code
 
 Phase 2 covers `pathlib` which is the modern replacement for `os.path` — cleaner syntax, same power.
 
@@ -453,8 +450,9 @@ with open("large_video.mp4", "rb") as fin:
 
 The most common file operation pattern in real code.
 
+**Pattern 1 — transform a file:**
+
 ```python
-# Pattern 1 — transform a file
 with open("input.txt", "r", encoding="utf-8") as f:
     content = f.read()
 
@@ -464,8 +462,9 @@ with open("output.txt", "w", encoding="utf-8") as f:
     f.write(processed)
 ```
 
+**Pattern 2 — filter lines:**
+
 ```python
-# Pattern 2 — filter lines
 with open("server.log", "r", encoding="utf-8") as fin:
     with open("errors.log", "w", encoding="utf-8") as fout:
         for line in fin:                     # lazy read
@@ -473,8 +472,9 @@ with open("server.log", "r", encoding="utf-8") as fin:
                 fout.write(line)             # write matching lines
 ```
 
+**Pattern 3 — process CSV data:**
+
 ```python
-# Pattern 3 — process CSV data
 students = []
 
 with open("students.csv", "r", encoding="utf-8") as f:
