@@ -1,4 +1,3 @@
-```markdown
 # 0.2 Variables & Basic Data Types
 
 ## Variables — Naming Rules

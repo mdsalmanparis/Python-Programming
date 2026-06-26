@@ -1,10 +1,4 @@
-Let's go. Full topic, nothing skipped.
-
----
-
-## 0.4 Lists
-
----
+# 0.4 Lists
 
 ## Creating a List
 
@@ -48,7 +42,9 @@ print(fruits[-1])    # elderberry  — last item
 print(fruits[-2])    # date
 ```
 
-**`IndexError` — going out of range:**
+### IndexError
+
+Going out of range:
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -75,7 +71,9 @@ print(nums[::-1])    # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]  — reversed
 print(nums[2:8:3])   # [2, 5]          — index 2, 5
 ```
 
-**Slicing returns a new list — original untouched:**
+### Slicing Returns a New List
+
+Original untouched:
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -86,7 +84,7 @@ print(chunk)    # [99, 3, 4]   — chunk changed
 print(nums)     # [1, 2, 3, 4, 5]  — original unchanged
 ```
 
-**Slicing never raises IndexError:**
+### Slicing Never Raises IndexError
 
 ```python
 nums = [1, 2, 3]
@@ -96,7 +94,7 @@ print(nums[10:20])    # []         — empty list, no error
 
 ---
 
-## `len()` — Number of Elements
+## len() — Number of Elements
 
 ```python
 print(len([1, 2, 3]))        # 3
@@ -121,7 +119,7 @@ fruits[-1] = "coconut"     # replace last element
 print(fruits)    # ['avocado', 'banana', 'coconut']
 ```
 
-**Replace a slice:**
+### Replace a Slice
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -139,7 +137,7 @@ print(nums)    # [1, 10, 11, 99, 4, 5]
 
 ## Adding Elements
 
-### `.append(item)` — add a single item to the end
+### .append(item) — Add a Single Item to the End
 
 ```python
 fruits = ["apple", "banana"]
@@ -154,7 +152,7 @@ print(fruits)    # ['apple', 'banana', 'cherry', [1, 2]]
 
 ---
 
-### `.insert(index, item)` — insert at a specific position
+### .insert(index, item) — Insert at a Specific Position
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -173,7 +171,7 @@ print(fruits)    # ['first', 'apple', 'avocado', 'banana', 'cherry', 'last']
 
 ---
 
-### `.extend(iterable)` — add multiple items
+### .extend(iterable) — Add Multiple Items
 
 ```python
 fruits = ["apple", "banana"]
@@ -196,7 +194,7 @@ nums += [4, 5]
 print(nums)    # [1, 2, 3, 4, 5]
 ```
 
-**`.append()` vs `.extend()` — the critical difference:**
+### .append() vs .extend() — The Critical Difference
 
 ```python
 a = [1, 2, 3]
@@ -215,7 +213,7 @@ This is one of the most common beginner mistakes. If you want to add multiple it
 
 ## Removing Elements
 
-### `.remove(value)` — remove first occurrence by value
+### .remove(value) — Remove First Occurrence by Value
 
 ```python
 fruits = ["apple", "banana", "cherry", "banana"]
@@ -235,7 +233,7 @@ if "banana" in fruits:
 
 ---
 
-### `.pop(index)` — remove and return item by index
+### .pop(index) — Remove and Return Item by Index
 
 ```python
 fruits = ["apple", "banana", "cherry", "date"]
@@ -255,7 +253,7 @@ fruits.pop(10)               # IndexError: pop index out of range
 
 ---
 
-### `del` — delete by index or slice
+### del — Delete by Index or Slice
 
 ```python
 fruits = ["apple", "banana", "cherry", "date", "elderberry"]
@@ -272,7 +270,7 @@ print(fruits)    # NameError: name 'fruits' is not defined
 
 ---
 
-### `.clear()` — empty the list
+### .clear() — Empty the List
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -281,7 +279,7 @@ print(fruits)    # []
 print(len(fruits))   # 0
 ```
 
-**`.clear()` vs `del` vs reassigning:**
+### .clear() vs del vs Reassigning
 
 ```python
 a = [1, 2, 3]
@@ -290,8 +288,11 @@ b = a              # b points to the same list
 a.clear()          # empties the list object itself
 print(a)    # []
 print(b)    # []   — b sees the change because it's the SAME object
+```
 
-# Compare with reassignment:
+Compare with reassignment:
+
+```python
 a = [1, 2, 3]
 b = a
 a = []             # a now points to a NEW empty list
@@ -305,7 +306,7 @@ This distinction — clearing an object vs pointing a name at a new object — i
 
 ## Searching
 
-### `in` operator — membership test
+### in Operator — Membership Test
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -317,7 +318,7 @@ print("apple" not in fruits) # False
 # Time complexity: O(n) — scans the list linearly
 ```
 
-### `.index(value)` — find position of first occurrence
+### .index(value) — Find Position of First Occurrence
 
 ```python
 fruits = ["apple", "banana", "cherry", "banana"]
@@ -330,7 +331,7 @@ print(fruits.index("xyz"))        # ValueError: 'xyz' is not in list
 print(fruits.index("banana", 2))  # 3  — find banana starting from index 2
 ```
 
-### `.count(value)` — count occurrences
+### .count(value) — Count Occurrences
 
 ```python
 nums = [1, 2, 3, 2, 2, 4, 2]
@@ -343,7 +344,7 @@ print(nums.count(9))    # 0  — not found, returns 0, no error
 
 ## Sorting
 
-### `.sort()` — sorts in-place, returns `None`
+### .sort() — Sorts In-Place, Returns None
 
 ```python
 nums = [3, 1, 4, 1, 5, 9, 2, 6]
@@ -362,7 +363,7 @@ words.sort()
 print(words)    # ['apple', 'banana', 'cherry', 'date']  — alphabetical
 ```
 
-**`key=` parameter — sort by a custom rule:**
+### key= Parameter — Sort by a Custom Rule
 
 ```python
 words = ["banana", "apple", "cherry", "fig", "date"]
@@ -372,7 +373,7 @@ print(words)    # ['fig', 'date', 'apple', 'banana', 'cherry']
 words.sort(key=str.lower)         # case-insensitive sort
 ```
 
-**The trap — `.sort()` returns `None`:**
+### The Trap — .sort() Returns None
 
 ```python
 nums = [3, 1, 2]
@@ -383,7 +384,9 @@ print(nums)     # [1, 2, 3]  — the list itself was sorted
 
 ---
 
-### `sorted()` — returns a new sorted list, original unchanged
+## sorted() — Returns a New Sorted List
+
+Original unchanged:
 
 ```python
 nums = [3, 1, 4, 1, 5]
@@ -400,13 +403,15 @@ print(sorted(nums, reverse=True))         # [5, 4, 3, 1, 1]
 print(sorted(words, key=len))
 ```
 
-**When to use which:**
+### When to Use Which
 
+**Use `.sort()` when you want to sort the list itself and don't need the original:**
 ```python
-# Use .sort() when you want to sort the list itself and don't need the original
 nums.sort()
+```
 
-# Use sorted() when you need to keep the original OR sort something that isn't a list
+**Use `sorted()` when you need to keep the original OR sort something that isn't a list:**
+```python
 original = [3, 1, 2]
 sorted_copy = sorted(original)
 ```
@@ -415,7 +420,7 @@ sorted_copy = sorted(original)
 
 ## Reversing
 
-### `.reverse()` — reverses in-place, returns `None`
+### .reverse() — Reverses In-Place, Returns None
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -423,7 +428,7 @@ nums.reverse()
 print(nums)    # [5, 4, 3, 2, 1]
 ```
 
-### `[::-1]` — returns a new reversed list
+### [::-1] — Returns a New Reversed List
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -432,7 +437,7 @@ print(reversed_nums)   # [5, 4, 3, 2, 1]
 print(nums)            # [1, 2, 3, 4, 5]  — unchanged
 ```
 
-### `reversed()` — built-in, returns an iterator
+### reversed() — Built-In, Returns an Iterator
 
 ```python
 nums = [1, 2, 3, 4, 5]
@@ -446,7 +451,9 @@ list(reversed(nums))    # [5, 4, 3, 2, 1]  — convert to list if needed
 
 ## Copying — The Most Important Gotcha in Lists
 
-### `b = a` does NOT copy — both names point to the same list
+### b = a Does NOT Copy
+
+Both names point to the same list:
 
 ```python
 a = [1, 2, 3]
@@ -465,7 +472,7 @@ There is only one list in memory. `a` and `b` are just two different names point
 
 ---
 
-### Shallow copy — `.copy()` or `[:]`
+## Shallow Copy — .copy() or [:]
 
 Creates a new list object with the same elements.
 
@@ -479,7 +486,7 @@ print(a)    # [1, 2, 3]      — unchanged
 print(b)    # [1, 2, 3, 4]   — only b changed
 ```
 
-**"Shallow" means it copies references, not nested objects:**
+### "Shallow" Means It Copies References, Not Nested Objects
 
 ```python
 a = [1, 2, [10, 20]]
@@ -497,7 +504,7 @@ The outer list is a copy, but the nested list `[10, 20]` inside is still the sam
 
 ---
 
-### Deep copy — when you need truly independent nested lists
+## Deep Copy — When You Need Truly Independent Nested Lists
 
 ```python
 import copy
@@ -510,7 +517,7 @@ print(a)    # [1, 2, [10, 20]]       — completely unchanged
 print(b)    # [1, 2, [10, 20, 30]]
 ```
 
-**Summary — which to use:**
+### Summary — Which to Use
 
 ```python
 b = a              # NO copy — same object, don't do this when you want a copy
@@ -540,7 +547,7 @@ print(matrix[2][2])     # 9  — row 2, column 2
 print(matrix[-1][-1])   # 9  — last row, last column
 ```
 
-**Modifying a nested list:**
+### Modifying a Nested List
 
 ```python
 matrix[0][0] = 99
@@ -548,27 +555,31 @@ print(matrix)
 # [[99, 2, 3], [4, 5, 6], [7, 8, 9]]
 ```
 
-**Iterating a matrix:**
+### Iterating a Matrix
 
+**Row by row:**
 ```python
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
-# Row by row
 for row in matrix:
     print(row)
+```
 
-# Every individual element
+**Every individual element:**
+```python
 for row in matrix:
     for item in row:
         print(item, end=" ")    # 1 2 3 4 5 6 7 8 9
+```
 
-# With indexes
+**With indexes:**
+```python
 for i in range(len(matrix)):
     for j in range(len(matrix[i])):
         print(f"[{i}][{j}] = {matrix[i][j]}")
 ```
 
-**Creating a matrix with a loop:**
+### Creating a Matrix with a Loop
 
 ```python
 # 3x3 matrix of zeros
@@ -577,7 +588,9 @@ matrix = [[0] * cols for _ in range(rows)]
 print(matrix)    # [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 ```
 
-**The wrong way to create a matrix — a very common bug:**
+### The Wrong Way to Create a Matrix
+
+A very common bug:
 
 ```python
 # WRONG
@@ -585,8 +598,10 @@ matrix = [[0] * 3] * 3
 matrix[0][0] = 99
 print(matrix)    # [[99, 0, 0], [99, 0, 0], [99, 0, 0]]
                  # all 3 rows are the SAME list object
+```
 
-# CORRECT
+**Correct approach:**
+```python
 matrix = [[0] * 3 for _ in range(3)]
 matrix[0][0] = 99
 print(matrix)    # [[99, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -599,7 +614,7 @@ print(matrix)    # [[99, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 Extracting list values directly into named variables.
 
-### Basic unpacking — must match exactly
+### Basic Unpacking — Must Match Exactly
 
 ```python
 coords = [10, 20, 30]
@@ -607,13 +622,16 @@ x, y, z = coords
 print(x)    # 10
 print(y)    # 20
 print(z)    # 30
+```
 
-# Mismatch raises ValueError
+Mismatch raises ValueError:
+
+```python
 a, b = [1, 2, 3]     # ValueError: too many values to unpack
 a, b, c, d = [1, 2]  # ValueError: not enough values to unpack
 ```
 
-### `*` — starred expression, captures the rest
+### * — Starred Expression, Captures the Rest
 
 ```python
 first, *rest = [1, 2, 3, 4, 5]
@@ -628,8 +646,11 @@ first, *middle, last = [1, 2, 3, 4, 5]
 print(first)     # 1
 print(middle)    # [2, 3, 4]
 print(last)      # 5
+```
 
-# Works on a two-element list too
+Works on a two-element list too:
+
+```python
 first, *rest = [1, 2]
 print(first)    # 1
 print(rest)     # [2]
@@ -639,7 +660,7 @@ print(first)    # 1
 print(rest)     # []  — empty list, no error
 ```
 
-### Unpacking in loops
+### Unpacking in Loops
 
 ```python
 pairs = [[1, "one"], [2, "two"], [3, "three"]]
@@ -649,13 +670,16 @@ for num, word in pairs:
 # 1 = one
 # 2 = two
 # 3 = three
+```
 
-# Swap using unpacking (from 0.2)
+Swap using unpacking (from 0.2):
+
+```python
 a, b = 5, 10
 a, b = b, a
 ```
 
-### Nested unpacking
+### Nested Unpacking
 
 ```python
 data = [1, [2, 3], 4]
@@ -667,8 +691,9 @@ print(a, b, c, d)    # 1 2 3 4
 
 ## Putting It All Together
 
+A realistic list processing example:
+
 ```python
-# A realistic list processing example
 scores = [88, 45, 92, 67, 45, 78, 92, 55]
 
 # Basic stats

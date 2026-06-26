@@ -1,12 +1,12 @@
-## 0.3 Strings in Depth
-
----
+# 0.3 Strings in Depth
 
 ## String Creation
 
 A string is a sequence of characters. You create one by wrapping text in quotes.
 
-### Single and double quotes — identical
+### Single and Double Quotes
+
+Single and double quotes are identical:
 
 ```python
 a = 'hello'
@@ -17,19 +17,19 @@ print(type(a))     # <class 'str'>
 
 Choose one style and stay consistent. The only time you switch is to avoid escaping:
 
+**Instead of escaping the apostrophe:**
 ```python
-# Instead of escaping the apostrophe:
 bad  = 'it\'s fine'       # works but ugly
 good = "it's fine"        # cleaner — use double quotes when string has apostrophe
+```
 
-# Instead of escaping double quotes:
+**Instead of escaping double quotes:**
+```python
 bad  = "she said \"hello\""    # works but ugly
 good = 'she said "hello"'      # cleaner — use single quotes when string has double quotes
 ```
 
----
-
-### Triple quotes — multi-line strings
+### Triple Quotes — Multi-Line Strings
 
 ```python
 message = """This is line one.
@@ -44,17 +44,19 @@ print(message)
 
 Triple quotes preserve every newline and space exactly as written. Single-quoted strings cannot span multiple lines without `\n`.
 
+**Single quote multi-line — you must manually add \n:**
 ```python
-# Single quote multi-line — you must manually add \n
 message = "line one\nline two\nline three"
+```
 
-# Triple quote — newlines are literal
+**Triple quote — newlines are literal:**
+```python
 message = """line one
 line two
 line three"""
 ```
 
-**Triple quotes are also used for docstrings:**
+Triple quotes are also used for **docstrings**:
 
 ```python
 def add(a, b):
@@ -82,7 +84,9 @@ s = "Python"
 #   -6 -5 -4 -3 -2 -1   ← negative indexes
 ```
 
-**Positive indexing — starts at 0:**
+### Positive Indexing
+
+Starts at 0:
 
 ```python
 s = "Python"
@@ -91,7 +95,9 @@ print(s[1])    # y
 print(s[5])    # n  — last character
 ```
 
-**Negative indexing — starts at -1 from the end:**
+### Negative Indexing
+
+Starts at -1 from the end:
 
 ```python
 s = "Python"
@@ -102,7 +108,9 @@ print(s[-6])   # P  — same as s[0]
 
 Negative indexing is extremely useful — `s[-1]` to get the last character works regardless of how long the string is.
 
-**`IndexError` — going out of range:**
+### IndexError
+
+Going out of range:
 
 ```python
 s = "Python"     # length is 6, valid indexes: 0 to 5, or -1 to -6
@@ -118,7 +126,7 @@ print(s[-7])     # IndexError: string index out of range
 
 Slicing extracts a portion of a string. It returns a **new string** — the original is unchanged.
 
-### Syntax: `s[start:stop:step]`
+### Syntax: s[start:stop:step]
 
 - `start` — index to begin at (inclusive)
 - `stop` — index to end at (exclusive — this character is NOT included)
@@ -153,15 +161,17 @@ print(s[1::2])   # yhn  — start at 1, every 2nd: y(1), h(3), n(5)
 print(s[::3])    # Ph   — every 3rd: P(0), h(3)
 ```
 
-### Reverse a string — `s[::-1]`
+### Reverse a String
+
+Use `s[::-1]`:
 
 ```python
 s = "Python"
 print(s[::-1])   # nohtyP — step of -1 goes backwards
 
 word = "racecar"
-print(word[::-1])   # racecar — palindrome check trick
-print(word == word[::-1])   # True
+print(word[::-1])         # racecar — palindrome check trick
+print(word == word[::-1]) # True
 ```
 
 **Step of -1 with start and stop:**
@@ -171,7 +181,7 @@ s = "Python"
 print(s[4:1:-1])   # oht  — from index 4 down to index 2 (1 is excluded)
 ```
 
-### Slicing never raises IndexError
+### Slicing Never Raises IndexError
 
 ```python
 s = "Python"
@@ -181,7 +191,7 @@ print(s[10:20])    # ""     — empty string, no error
 
 ---
 
-## `len(s)` — Length
+## len(s) — Length
 
 Returns the number of characters in the string.
 
@@ -192,7 +202,7 @@ print(len("hello world")) # 11 — space counts as a character
 print(len("  "))          # 2  — two spaces
 ```
 
-**Relationship between `len()` and indexing:**
+### Relationship Between len() and Indexing
 
 ```python
 s = "Python"
@@ -206,7 +216,7 @@ print(s[-1])               # n — simpler, use this
 
 ## String Concatenation
 
-Joining strings together with `+`.
+Joining strings together with `+`:
 
 ```python
 first = "Mohamed"
@@ -215,7 +225,7 @@ full  = first + " " + last
 print(full)   # Mohamed Salman
 ```
 
-**Concatenation only works between strings:**
+### Concatenation Only Works Between Strings
 
 ```python
 name = "Mohamed"
@@ -226,19 +236,19 @@ print(name + str(age))      # Mohamed25 — must convert first
 print(name + " " + str(age))  # Mohamed 25
 ```
 
-### Why concatenation in a loop is inefficient
+### Why Concatenation in a Loop is Inefficient
 
+Every time you do `result += str(i)`, Python creates a brand new string in memory because strings are **immutable**. For 1000 iterations that's 1000 throwaway objects.
+
+**Bad approach:**
 ```python
-# BAD — creates a new string object on every iteration
 result = ""
 for i in range(1000):
     result += str(i)     # 1000 new string objects created
 ```
 
-Every time you do `result += str(i)`, Python creates a brand new string in memory because strings are immutable. For 1000 iterations that's 1000 throwaway objects.
-
+**Good approach:**
 ```python
-# GOOD — collect into a list, join once at the end
 parts = []
 for i in range(1000):
     parts.append(str(i))
@@ -272,7 +282,7 @@ name = "Mohamed"
 print(f"Hello, {name}!")    # Hello, Mohamed!
 ```
 
-### Any expression works inside `{}`
+### Any Expression Works Inside {}
 
 ```python
 a = 10
@@ -284,7 +294,7 @@ print(f"{2 ** 8}")                     # 256
 print(f"{'yes' if a > b else 'no'}")   # yes
 ```
 
-### Format specifiers — controlling output
+### Format Specifiers — Controlling Output
 
 ```python
 pi = 3.14159265
@@ -306,7 +316,7 @@ print(f"{x:X}")         # FF          — hex uppercase
 print(f"{x:o}")         # 377         — octal
 ```
 
-### f-string debugging with `=` (Python 3.8+)
+### f-string Debugging with = (Python 3.8+)
 
 ```python
 x = 42
@@ -404,8 +414,10 @@ print("world" in s)     # True
 print("xyz" in s)       # False
 print("o" in s)         # True
 print("" in s)          # True  — empty string is always "in" any string
+```
 
-# Used in conditions
+Used in conditions:
+```python
 if "error" in log_message:
     print("something went wrong")
 ```
@@ -453,8 +465,10 @@ s = "hello world"
 print(s.replace("world", "Python"))    # hello Python
 print(s.replace("l", "L"))            # heLLo worLd  — all occurrences
 print(s.replace("l", "L", 1))         # heLlo world  — only first occurrence
+```
 
-# Replace with empty string to delete
+Replace with empty string to delete:
+```python
 s = "h-e-l-l-o"
 print(s.replace("-", ""))    # hello
 ```
@@ -524,7 +538,7 @@ print(result)   # The Quick Brown Fox
 
 ---
 
-### Check Methods — return bool
+### Check Methods — Return bool
 
 ```python
 print("123".isdigit())      # True   — all characters are digits
@@ -571,7 +585,7 @@ s = "hello"
 s[0] = "H"      # TypeError: 'str' object does not support item assignment
 ```
 
-**What actually happens when you "modify" a string:**
+### What Actually Happens When You "Modify" a String
 
 ```python
 s = "hello"
@@ -579,7 +593,7 @@ s = s.upper()    # a NEW string "HELLO" is created, s now points to it
                  # the old "hello" object still exists until garbage collected
 ```
 
-**Why this matters — identity vs value:**
+### Why This Matters — Identity vs Value
 
 ```python
 a = "hello"
@@ -592,27 +606,29 @@ print(b)        # HELLO
 
 Reassigning `b` never touches `a`. They were just two names pointing to the same object, and now `b` points to a different one.
 
-**Practical implication — always capture the return value:**
+### Practical Implication — Always Capture the Return Value
 
+**Wrong approach — does nothing:**
 ```python
 name = "  Mohamed  "
-
-# WRONG — does nothing
 name.strip()
 print(name)       # "  Mohamed  "  — unchanged
+```
 
-# CORRECT — capture the result
+**Correct approach — capture the result:**
+```python
+name = "  Mohamed  "
 name = name.strip()
 print(name)       # "Mohamed"
 ```
 
 ---
 
-## `str.format()` — The Older Way
+## str.format() — The Older Way
 
 Before f-strings (pre Python 3.6), `.format()` was the standard. You'll see it in older codebases.
 
-**Positional:**
+### Positional
 
 ```python
 print("Hello, {}!".format("Mohamed"))          # Hello, Mohamed!
@@ -620,14 +636,16 @@ print("{} + {} = {}".format(1, 2, 3))          # 1 + 2 = 3
 print("{0} and {1} and {0}".format("a", "b"))  # a and b and a  — reuse by index
 ```
 
-**Named:**
+### Named
 
 ```python
 print("Name: {name}, Age: {age}".format(name="Mohamed", age=25))
 # Name: Mohamed, Age: 25
 ```
 
-**Format specifiers work the same as f-strings:**
+### Format Specifiers
+
+Work the same as f-strings:
 
 ```python
 print("{:.2f}".format(3.14159))    # 3.14
@@ -635,19 +653,24 @@ print("{:10}".format("hello"))     # "hello     "  — padded to width 10
 print("{:>10}".format("hello"))    # "     hello"  — right-aligned
 ```
 
-**f-string vs `.format()` vs `%` formatting — which to use:**
+### f-string vs .format() vs % formatting
 
+Which to use:
+
+**Old style — avoid:**
 ```python
 name = "Mohamed"
 score = 88
-
-# Old style — avoid
 print("Hello %s, score: %d" % (name, score))
+```
 
-# .format() — acceptable, common in older code
+**.format() — acceptable, common in older code:**
+```python
 print("Hello {}, score: {}".format(name, score))
+```
 
-# f-string — use this always in new code
+**f-string — use this always in new code:**
+```python
 print(f"Hello {name}, score: {score}")
 ```
 
@@ -699,31 +722,37 @@ print(path)    # C:\Users\Mohamed\Documents
 
 Prefix `r` before the opening quote — backslashes are treated as literal characters, not escape sequences.
 
+**Without raw string — \n and \t are escape characters:**
 ```python
-# Without raw string — \n and \t are escape characters
 path = "C:\new_folder\text_file"
 print(path)
 # C:
 # ew_folder	ext_file    ← \n became newline, \t became tab
+```
 
-# With raw string — backslashes are literal
+**With raw string — backslashes are literal:**
+```python
 path = r"C:\new_folder\text_file"
 print(path)
 # C:\new_folder\text_file    ← exactly as written
 ```
 
-**Where raw strings are essential:**
+### Where Raw Strings are Essential
 
+**File paths on Windows:**
 ```python
-# File paths on Windows
 path = r"C:\Users\Mohamed\Documents\report.pdf"
+```
 
-# Regular expressions — backslashes have meaning in regex
+**Regular expressions — backslashes have meaning in regex:**
+```python
 import re
 pattern = r"\d+\.\d+"    # matches decimal numbers like "3.14"
 # Without r: "\\d+\\.\\d+" — ugly and error-prone
+```
 
-# Raw strings with triple quotes
+**Raw strings with triple quotes:**
+```python
 text = r"""
 first\line
 second\line
@@ -731,7 +760,7 @@ second\line
 print(text)   # backslashes are literal
 ```
 
-**Raw strings cannot end with a single backslash:**
+### Raw Strings Cannot End with a Single Backslash
 
 ```python
 r"hello\"    # SyntaxError — a raw string can't end with odd number of backslashes
@@ -742,8 +771,9 @@ r"hello\\"   # ok — two backslashes at end
 
 ## Putting It All Together
 
+A realistic string processing example:
+
 ```python
-# A realistic string processing example
 raw_data = "  Mohamed Salman , 25 , Chennai  "
 
 # Clean whitespace
